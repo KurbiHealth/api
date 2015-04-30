@@ -1,0 +1,70 @@
+module.exports = function(router,connection,crypto,passport,async,emlTransporter){
+
+	// setup variables
+	var validModels = 	require('./v1/config/validModels.js');
+	var joins = 		require('./v1/config/joins.js');
+
+	// middleware to use for all requests
+	router.use(function(req,res,next){
+		console.log('---new request');
+		// put passport.authenticate() here?????????
+		next();
+	});
+
+	router.param('model',function(req,res,next,model){
+        // CHECK MODEL IS VALID
+        // (validModels is a 1-dimensional array from /config/validModels.js)
+        modelStatus = model in validModels;
+
+// if this is a PUT to "users", then need to allow adding new data to user record
+// also need POST for a new user if it's a care_team invitation
+// allow DELETE on users? only if they delete themselves? or archive the rcd
+
+		// model name not found in keys of "validModels" object
+        if(modelStatus == false){
+            res.status(500).send('modelNameInvalid');
+        }else{
+        	next();
+        }
+    });
+
+    // HELPER FUNCTIONS
+    // ====================
+    function sendMessage(options){
+    	/*
+		var mailOptions = {
+		    from: 'Fred Foo ✔ <foo@blurdybloop.com>', // sender address
+		    to: 'bar@blurdybloop.com, baz@blurdybloop.com', // list of receivers
+		    subject: 'Hello ✔', // Subject line
+		    text: 'Hello world ✔', // plaintext body
+		    html: '<b>Hello world ✔</b>' // html body
+		}; */
+		mailOptions = options;
+
+		// send mail with defined transport object
+		transporter.sendMail(mailOptions, function(error, info){
+		    if(error){
+		        return(error);
+		    }else{
+		        return(info.response);
+		    }
+		});
+    }
+
+	// ROUTES DEFINED
+	// ====================
+
+	require('./v1/loginsignup.js')(router,connection,crypto,async);
+	require('./v1/query.js')(router,connection,passport,validModels,async,joins);
+	require('./v1/alldbtables.js')(router,connection,passport,validModels,async,joins);
+	require('./v1/customroutes.js')(router,connection,passport,validModels,async,joins,sendMessage);
+	require('./v1/messages.js')(router,connection,passport,validModels,async,joins,sendMessage);
+
+	// test route to make sure everything is working
+	router.get('/', 
+		function(req, res) {
+	    	res.json({ message: 'welcome to the Kurbi API!' });   
+		}
+	);
+
+};
