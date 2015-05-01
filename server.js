@@ -58,5 +58,7 @@ kurbiapi.use('/dev/',devapi);
 
 // START THE SERVER
 // ====================
-kurbiapi.listen(port);
+var http = require('http');
+http.createServer(kurbiapi).listen(8080, '10.132.28.149');
+//kurbiapi.listen(port);
 console.log('Magic now happens on port ' + port);
