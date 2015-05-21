@@ -6,9 +6,29 @@ module.exports = function(router,connection,crypto,passport,async,emlTransporter
 
 	// middleware to use for all requests
 	router.use(function(req,res,next){
-		console.log('---new request');
+		console.log(req.method + ' -> ' + req.url);
+		//if(body in req)
+		//	console.log(req.body);
 		// put passport.authenticate() here?????????
-		next();
+
+		// Website you wish to allow to connect
+		res.setHeader('Access-Control-Allow-Origin', '*');
+
+		// Request methods you wish to allow
+		res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+		// Request headers you wish to allow
+		res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,x-custom-username,x-custom-token');
+
+		// Set to true if you need the website to include cookies in the requests sent
+		// to the API (e.g. in case you use sessions)
+		res.setHeader('Access-Control-Allow-Credentials', true);
+
+		if (req.method === 'OPTIONS') {
+			res.send(200);
+		}else{
+			next();
+		}
 	});
 
 	router.param('model',function(req,res,next,model){

@@ -76,7 +76,7 @@ module.exports = function(router,connection,passport,validModels,async,joins){
                             options = {sql: queryString, nestTables: true};
                             connection.query(options, function(err, rows) {
                                 if(err){
-                                    finalCallback(err,null);
+                                    finalCallback({query: queryString, err: err, line: 79},null);
                                 }else{
                                     finalCallback(null,rows);
                                 }
@@ -91,7 +91,7 @@ module.exports = function(router,connection,passport,validModels,async,joins){
                             }
                             connection.query(queryString, function(err, rows) {
                                 if(err){
-                                    finalCallback(err,null);
+                                    finalCallback({query: queryString, err: err, line: 94},null);
                                 }else{
                                     if(rows.length == 1){
                                         returnObj = rows[0];
@@ -121,7 +121,7 @@ module.exports = function(router,connection,passport,validModels,async,joins){
                     options = {sql: queryString, nestTables: true};
                     connection.query(options, function(err, rows) {
                         if(err){
-                            finalCallback(err,null);
+                            finalCallback({query: queryString, err: err, line: 124},null);
                         }else{
                             if(rows.length == 1){
                                 returnObj = rows[0];
@@ -180,8 +180,17 @@ module.exports = function(router,connection,passport,validModels,async,joins){
                     }else{
                         req.body.user_id = userId;
                     }
+                    // add a new record
+                    connection.query('INSERT INTO ' + tableName + ' SET ?', fieldArr, function(err, result) {
+                        if(err){
+                            returnObj = {query: queryString, dberr: err}
+                            res.status(500).send(returnObj);
+                        }else{
+                            // return id of inserted record (or return full record?)
+                            res.status(200).send({insertId: result.insertId});
+                        }
+                    });
                 }else{ // validModel should == 'privateJoin'
-
                     // if it's a privateJoin, then I should look up the chain to see if there's a user_id
                     // UNLESS, the parentTable is defined in the post form, in which case there should be 
                     // a user_id in that parentTable,
@@ -194,16 +203,16 @@ module.exports = function(router,connection,passport,validModels,async,joins){
 
                     // the point is to check that the record in the parentTable is linked to a user rcd, or 
                     // to a table with user_id with a connected record (that already exists)
-                    joinStr = '';
+                    joinStr = ' JOIN ' + tableParent  + ' ON (' + joins[tableChild][tableParent] + ') ';
                     stop = false;
 
                     while(stop == false){
                         if(validModels[tableParent] == 'private'){
                             // check whether there is a record with the right user_id value in it
-                            queryString = 'SELECT * FROM ' + tableChild + joinStr + ' WHERE ' + tableParent + '.user_id=' + userId;
+                            queryString = 'SELECT * FROM ' + tableName + joinStr + ' WHERE ' + tableParent + '.user_id=' + userId;
                             connection.query(queryString,function(err,rows){
                                 if(err){
-                                    res.status(500).send({query:queryString,error:err});
+                                    res.status(500).send({query:queryString,error:err, variables: {'tableName': tableName, 'tableParent': tableParent, 'tableChild': tableChild, 'joinStr': joinStr, 'userId': userId}});
                                 }else if(rows.length == 0){
                                     res.status(500).send('relationship to a table with a user id not found');
                                 }else{
@@ -321,7 +330,6 @@ module.exports = function(router,connection,passport,validModels,async,joins){
                 {session: false}
             ),
             function(req, res) {
-console.log(req.body);
                 // get variables
                 tableName = req.params.model;
                 userId = req.user.id;

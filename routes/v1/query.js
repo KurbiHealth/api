@@ -134,6 +134,7 @@ module.exports = function(router,connection,passport,validModels,async,joins){
 
                         callback(null,modelName,userFilter,tableNamesArr,multiTable,where);
                     }else{
+                        console.log(req.body);
                         callback('there was no field found for query',null);
                     }
                 }, 
