@@ -80,6 +80,8 @@ module.exports = function(router,connection,crypto,passport,async,emlTransporter
 	require('./v1/customroutes.js')(router,connection,passport,validModels,async,joins,sendMessage);
 	require('./v1/messages.js')(router,connection,passport,validModels,async,joins,sendMessage);
 
+	require('./v1/landingpgsignup.js')(router,connection,crypto,async);
+
 	// test route to make sure everything is working
 	router.get('/', 
 		function(req, res) {
