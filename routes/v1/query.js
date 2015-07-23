@@ -132,11 +132,9 @@ module.exports = function(router,connection,passport,validModels,async,joins){
                             }
                         }
 
-                        callback(null,modelName,userFilter,tableNamesArr,multiTable,where);
-                    }else{
-                        console.log(req.body);
-                        callback('there was no field found for query',null);
                     }
+
+                    callback(null,modelName,userFilter,tableNamesArr,multiTable,where);
                 }, 
                 
                 // CREATE CORE SQL STATEMENT
@@ -212,7 +210,7 @@ module.exports = function(router,connection,passport,validModels,async,joins){
 
                 // DO DATABASE CALL
                 function(sqlString,callback){
-                    options = {sql: sqlString, nestTables: true};
+                    options = {sql: sqlString, nestTables: false};
                     connection.query(options, function(err, rows) {
                         if(err){
                             returnObj = {query: sqlString, dberr: err}

@@ -1,0 +1,2289 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html xmlns:n3="http://www.w3.org/1999/xhtml" xmlns:n1="urn:hl7-org:v3" xmlns:n2="urn:hl7-org:v3/meta/voc" xmlns:voc="urn:hl7-org:v3/voc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sdtc="urn:hl7-org:sdtc">
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=utf-8"><!--
+          Do NOT edit this HTML directly, it was generated via an XSLt
+          transformation from the original release 2 CDA Document.
+        --><title>Christiana Care Internal Medicine at Greenville Center Clinical Summary</title>
+    <style type="text/css">
+          html {}
+          body {
+            border: 0;
+            font: 12px "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+          }
+          #wrapper {
+            width: 100%;
+            margin: 10px auto;
+            background: #FFF;
+          }
+          #content {
+            margin-left: 0;
+            margin-bottom: 30px;
+            margin-right: 0;
+          }
+          table {
+            border: none;
+            border-collapse: collapse;
+            padding: 0;
+            margin:0;
+            width: 100%;
+          }
+
+          #Medications table {
+            margin: 5px 0 15px 0;
+            border-bottom: solid 1px #CCC;
+          }
+
+          td.label {
+            text-align: right;
+            font-weight: bold;
+            white-space: nowrap;
+            width: 110px;
+          }
+          td, th {
+            padding: 5px;
+            margin: 0px;
+            border: none;
+            text-align: left;
+            vertical-align: top;
+            border-bottom: solid 1px #CCC;
+          }
+
+          table th {
+            background: #333;
+            color: #FFF;
+            padding: 4px;
+            font-size:11px;
+          }
+
+          td {
+            font-size: 14px;
+            padding-right: 10px;
+          }
+
+          #Medications td {
+            vertical-align: top;
+            padding-right: 10px;
+            padding-top: 0;
+          }
+          th {
+            font-size: 14px;
+          }
+          .roundtable {
+            -moz-border-radius: 10px;
+            border-radius: 10px;
+            background: #0F0;
+          }
+          table div.roundtable {
+            -moz-border-radius: 0px;
+            border-radius: 0px;
+            background: none;
+          }
+          #patientinfo table {
+            border: none;
+          }
+          #patientinfo td {
+            border-bottom: none;
+          }
+          #patientinfo tr {
+            background: transparent;
+          }
+          #patientinfo table table td {
+            padding: 8px 3px 4px 3px;
+          }
+          
+          #tablePerformer td:first-child {
+            padding: 0 3px 4px 8px;
+          }
+          #tablePerformer td:last-child {
+            padding-top: 0;
+            padding-left: 2px;
+          }
+
+          a {
+            color: #000;
+          }
+          h2 {
+            font: 20px "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: #000;
+            text-align: center;
+            padding-top: 40px;
+            margin-bottom: 5px;
+            padding-bottom: 5px;
+            border-bottom: 1px dotted #999;
+          }
+          h3 {
+            font: 18px "Arvo", Georgia, "Times New Roman", Times, serif;
+            font-weight: bold;
+            display: block;
+            height: 25px;
+            margin-bottom: 0px;
+            padding-top: 20px;
+            border-bottom: solid 2px #333;
+          }
+          h3 a {
+            text-decoration: none;
+            color: #000;
+            background: #FFF;
+            padding-right: 5px;
+            float: left;
+          }
+          h4 {
+            font: 16px "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            margin: 0;
+            border-bottom: 1px dotted #999;
+          }
+          h5 {
+            font: 11px "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: #000;
+            padding: 0;
+            margin: 0 0 20px 0;
+          }
+          ol#toc {
+            font: italic 14px "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: #666;
+            list-style-type: upper-roman;
+          }
+          #toc li {
+            width: 100%;
+            border-bottom: 1px dotted #CCC;
+            margin-bottom: 15px;
+            height: 8px;
+          }
+          #toc li a {
+            font: bolder 13px "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            text-align: right;
+            text-decoration: none;
+            display: block;
+            color: #000;
+          }
+          #toc li a:hover {
+            color: #666;
+          }
+          #toc span {
+            background: #fff;
+            padding-left: 5px;
+          }
+          #patientinfo {
+            -moz-border-radius: 10px;
+            border-radius: 10px;
+            padding: 10px 20px;
+            border: 1px solid #999;
+          }
+          
+          pre {
+            white-space: normal;
+          }
+          
+          p:first-child {
+            margin-top: 0;
+          }
+          p:last-child {
+            margin-bottom: 0;
+          }
+
+          /* Medication Name */
+          #Medications table tr:first-of-type td:nth-child(1) {
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+            width: 1px;
+            padding: 0 5px;
+          }
+
+          /* Pharmacy details */
+          #Medications table tr:nth-child(2) td:nth-last-child(1) {
+            /*font-size: 11px;*/
+          }
+
+          /* Diagnosis */
+          #Medications table tr:first-of-type td:nth-last-child(1) {
+            /*font-size: 11px;*/
+          }
+
+          /* DIAGNOSIS label */
+          #Medications table tr:first-of-type td:nth-last-child(2) {
+            font-size: 11px;
+            color: #888;
+          }
+
+          /* PHARMACY label */
+          #Medications table tr:nth-child(2) td:nth-last-child(2) {
+            font-size: 11px;
+            color: #888;
+          }
+
+          /* Past medication date */
+          #Medications table tr:first-of-type td:nth-child(2) {
+            color: #888;
+            font-size: 11px;
+            vertical-align: middle;
+          }
+
+          /* Provider name in header */
+          #Medications table th:nth-child(3) {
+            font-weight: normal;
+            font-size: 11px;
+          }
+
+          /* LAB RESULTS SECTION */
+
+          /* Header first row */
+          #LabResults table thead tr:nth-of-type(1) th{
+            padding: 2px 5px 0 5px;
+            white-space: nowrap;
+            font-style: normal;
+          }
+
+          /* Header Result Description */
+          #LabResults table thead tr:first-of-type th:first-of-type {
+            font-size: 16px;
+          }
+
+          /* Header second row */
+          #LabResults table thead tr:nth-of-type(2) th{
+            font-weight: normal;
+            padding: 0 5px 5px 5px;
+            white-space: nowrap;
+          }
+
+          /* Lab Component Description i.e. 'Hemoglobin' */
+          #LabResults table td:nth-child(1) {
+            font-size: 14px;
+            font-weight: 600;
+          }
+
+          /* Result Value i.e. '2.3' */
+          #LabResults table td:nth-child(2) {
+            font-size: 14px;
+            font-weight: 600;
+            text-align: right;
+            white-space: nowrap;
+            padding-right: 0;
+            margin-right: 0;
+          }
+
+          /* Result Value (paragraph tag) */
+          #LabResults table td:nth-child(2) p {
+            margin: 2px 0;
+          }
+
+          /* Result UNITS */
+          #LabResults table td:nth-child(3) {
+            font-size: 11px;
+            font-style: normal;
+            color: #333;
+            padding-left: 3px;
+            padding-right: 15px;
+            margin-left: 0;
+            white-space: nowrap;
+          }
+
+          /* Result Normal Range i.e. '(2.3-5.1)' */
+          #LabResults table td:nth-child(4) {
+            font-size: 11px;
+            font-style: normal;
+            color: #333;
+            padding: 0 0 0 15px;
+          }
+
+          /* N (Normal)/ H (High)/ L (Low) ETC */
+          #LabResults table td:nth-child(5) {
+            font-size: 12px;
+            font-weight: 600;
+            color: #990000;
+          }
+
+          /* Status */
+          #LabResults table td:nth-child(6) {
+            font-size: 12px;
+            font-style: normal;
+            color: #000000;
+          }
+
+          /* Abnormal results */
+          #LabResults table tr {
+            color: #990000;
+            font-style: italic;
+          }
+
+          /* Normal results */
+          #LabResults table tr.normalLabResult {
+            color: #000000;
+            font-style: normal;
+          }
+
+          /* All results (PARAGRAPH TAG) */
+          #LabResults table tr td:nth-child(2) p {
+            display: inline;
+            padding: 1px 4px;
+          }
+
+          /* Level of abnormality (PARAGRAPH TAG) */
+          #LabResults table tr td:nth-child(5) p {
+            margin: 0;
+            padding: 0;
+          }
+
+          /* Normal results Level of abnormality 'N (Normal)' or blank */
+          #LabResults table tr.normalLabResult td:nth-child(5) p {
+            display: none;
+          }
+
+          /* All Labs table cells */
+          #LabResults tr td {
+            padding-right: 10px;
+            vertical-align: middle;
+            line-height: 20px;
+            border-top: solid 1px #CCC;
+            border-bottom: 0;
+          }
+
+          /* Reviewed by... */
+          #LabResults table tr:last-of-type td:nth-child(1) {
+            font-style: italic;
+            font-weight: normal;
+            font-size: 12px;
+            text-align: right;
+            border-bottom: none;
+            line-height: 30px;
+            color: #000000;
+          }
+
+
+          /* Handling Note rows */
+          #Problems tr td {
+            border-top: solid 1px #CCC;
+            border-bottom: 0;
+          }
+
+          #LabResults tr:first-of-type td {
+            border: 0;
+          }
+
+          /* Labs note rows */
+          #LabResults table tr.noteRow {
+            color: #000000;
+          }
+
+          #Problems tr:first-of-type td {
+            border: 0;
+          }
+
+          #AllergiesandAdverseReactions tr td {
+            border-top: solid 1px #CCC;
+            border-bottom: 0;
+          }
+
+          #AllergiesandAdverseReactions tr:first-of-type td {
+            border: 0;
+          }
+
+          /* ALL NOTE rows */
+          table tr.noteRow td:nth-child(1) {
+            white-space: normal;
+            color: #000000;
+          }
+
+          /* Problems Note Row */
+          #Problems tr.noteRow td {
+            border: 0;
+            font-size: 11px;
+            padding: 0 0 0 15px;
+          }
+          
+          /* Allergies Note Row */
+          #AllergiesandAdverseReactions tr.noteRow td {
+            border: 0;
+            font-size: 11px;
+            padding: 0 0 0 15px;
+          }
+
+          /* Labs Note Row */
+          #LabResults tr.noteRow td {
+            border: 0;
+            font-size: 11px;
+            font-weight: normal;
+            padding: 0 5px 5px 15px;
+          }
+
+          /* Plan of Care Note Row */
+          #PlanofCare tr.noteRow td {
+            border: 0;
+            font-size: 11px;
+            font-weight: normal;
+            font-style: italic;
+            padding: 0 5px 5px 15px;
+          }
+
+          #PlanofCare tr td {
+            border-top: solid 1px #CCC;
+            border-bottom: 0;
+          }
+          
+          td.word-break {
+            word-break: break-word;
+          }
+        
+          @media only screen and (max-width: 700px) {
+            #Medications table td {
+              word-break: break-all;
+              font-size: .9em;
+              padding: 0 6px 6px 0;
+            }
+            #Medications table tbody td:nth-child(1) {
+              width: 20%;
+              white-space: pre-wrap !important;
+            }
+            #Medications table tbody td:nth-child(2) {
+              width: 10%;
+            }
+            #Medications table tbody td:nth-child(5){
+              width: 20%;
+            }
+
+            #ConditionsorProblems table td {
+              word-break: break-all;
+              font-size: .9em;
+              padding: 0 6px 6px 0;
+            }
+            #ConditionsorProblems table tbody td:nth-child(1) {
+              width: 15%;
+            }
+            #ConditionsorProblems table tbody td:nth-child(2) {
+              width: 11%;
+            }
+            #ConditionsorProblems table tbody td:nth-child(3) {
+              width: 7%;
+            }
+            #ConditionsorProblems table tbody td:nth-child(4) {
+              width: 10%;
+            }
+            #ConditionsorProblems table tbody td:nth-child(5) {
+              width: 7%;
+            }
+          }
+
+          @media print {
+            #wrapper {
+              width: auto;
+              margin: 0;
+            }
+
+            #LabResults table td:nth-child(2) p {
+              color: #FFFFFF !important;
+            }
+          }
+          
+          .scBold { 
+            font-weight: bold;
+          }
+          .scUnderline {
+            text-decoration: underline;
+          }
+          .scItalics {
+            font-style: italic;
+          }
+          .scEmphasis {
+            font-variant: small-caps;
+          }
+          .scHistorical {}
+          .scAltRow {}
+          .scMonospace {
+            text-indent: 0px;
+            padding-left: 6px;
+          }
+          .scFlagData {}
+          .scSecondaryText {}
+          .scCellHeader {}
+          .scAllIndent {
+            padding-left: 16px;
+            text-indent: 0px;
+            display: block;
+          }
+          td.scAllIndent {
+            display: table-cell;
+          }
+          .scNoIndent {}
+          span.scTextAlignCenter,
+          span.scTextAlignRight {
+            display: block;
+          }
+          .scTextAlignCenter {
+            text-align: center;
+          }
+          .scTextAlignRight {
+            text-align: right;
+          }
+        </style>
+  </head><!--
+        Derived from HL7 Finland R2 Tyylitiedosto: Tyyli_R2_B3_01.xslt
+        Updated by   Calvin E. Beebe,   Mayo Clinic - Rochester Mn.
+      --><body>
+    <div id="wrapper" class="shadow">
+      <div id="content">
+        <h2>Christiana Care Internal Medicine at Greenville Center Clinical Summary</h2>
+        <h5 style="float:right;">Office Contact Info: <br>Greenville Center 3710 Kennett Pike Greenville, DE, 19807<br>tel:+1-302-623-6300 (Work)
+      <br></h5>
+        <h5>Generated  by: Maria DeJoseph MD on July 2, 2015</h5>
+        <div style="clear:both;"></div>
+        <div id="patientinfo">
+          <h4>MATTHEW ECKMAN</h4>
+          <table width="100%">
+            <tr>
+              <td width="40%">
+                <table>
+                  <tr>
+                    <td class="label">Birth Date:</td>
+                    <td>May 29, 1973</td>
+                  </tr>
+                  <tr>
+                    <td class="label">Sex:</td>
+                    <td>Male</td>
+                  </tr>
+                  <tr>
+                    <td class="label">Marital Status:</td>
+                    <td>M</td>
+                  </tr>
+                  <tr>
+                    <td class="label">Race:</td>
+                    <td>White</td>
+                  </tr>
+                  <tr>
+                    <td class="label">Ethnicity:</td>
+                    <td>Not Hispanic or Latino</td>
+                  </tr>
+                  <tr>
+                    <td class="label">Language:</td>
+                    <td>English</td>
+                  </tr>
+                  <tr>
+                    <td class="label">Patient ID:</td>
+                    <td>1671539805007400</td>
+                  </tr>
+                </table>
+              </td>
+              <td width="60%">
+                <table>
+                  <tr>
+                    <td class="label">Address:</td>
+                    <td>36 BRIER AVE WILMINGTON, DE, 19805</td>
+                  </tr>
+                  <tr>
+                    <td class="label">Patient Contact Info:</td>
+                    <td> (Home)
+      <br>mailto:matteckman@gmail.com<br></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <table id="tablePerformer" width="100%">
+                <tr>
+                  <td class="label">Care Team:</td>
+                  <td class="care-team">Maria DeJoseph MD tel:+1-302-623-6300 (Work)
+      <br></td>
+                </tr>
+              </table>
+            </tr>
+          </table>
+        </div>
+        <div>
+          <h3><a name="toc">Table of Contents</a></h3>
+          <ol id="toc">
+            <li><a href="#ID0EVGAC"><span>Allergies, Adverse Reactions, Alerts</span></a></li>
+            <li><a href="#ID0E1UAE"><span>Immunizations</span></a></li>
+            <li><a href="#ID0EYKAG"><span>Results</span></a></li>
+            <li><a href="#ID0ELZEK"><span>Medications</span></a></li>
+            <li><a href="#ID0EAFGK"><span>Plan of Care</span></a></li>
+            <li><a href="#ID0E5NGK"><span>Conditions or Problems</span></a></li>
+            <li><a href="#ID0EAXAM"><span>Procedures</span></a></li>
+            <li><a href="#ID0EMHDM"><span>Social History</span></a></li>
+            <li><a href="#ID0ESCEM"><span>Vital Signs</span></a></li>
+          </ol>
+        </div>
+        <div id="Allergies,AdverseReactions,Alerts">
+          <h3><a name="ID0EVGAC" href="#toc">Allergies, Adverse Reactions, Alerts</a></h3>
+            <table class="boogie" border="1" width="100%">
+              <thead>
+                <tr>
+                  <th>Allergy Name</th>
+                  <th>Reaction Description</th>
+                  <th>Start Date</th>
+                  <th>Severity</th>
+                  <th>Status</th>
+                  <th>Provider</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>AZITHROMYCIN</td>
+                  <td>Blood in stool</td>
+                  <td>2013/01/02</td>
+                  <td>Critical</td>
+                  <td>No Longer Active</td>
+                  <td>Donald S. Collins MD</td>
+                </tr>
+                <tr>
+                  <td>AZITHROMYCIN</td>
+                  <td>Blood in stool</td>
+                  <td>2013/01/02</td>
+                  <td>Critical</td>
+                  <td>No Longer Active</td>
+                  <td>Maria DeJoseph MD</td>
+                </tr>
+                <tr>
+                  <td colspan="6">Observed no known allergies at 2015/06/24</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        <div id="Immunizations">
+          <h3><a name="ID0E1UAE" href="#toc">Immunizations</a></h3>
+            <table class="boogie" border="1" width="100%">
+              <thead>
+                <tr>
+                  <th>Vaccine</th>
+                  <th>Administration Date</th>
+                  <th>Standard Description</th>
+                  <th>CVX Code</th>
+                  <th>Dose</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>CVX141B</td>
+                  <td>2014/11/12</td>
+                  <td>CVX141B</td>
+                  <td>141</td>
+                  <td>0.5 mL</td>
+                </tr>
+                <tr>
+                  <td>CVX141B</td>
+                  <td>2014/01/14</td>
+                  <td>CVX141B</td>
+                  <td>141</td>
+                  <td>0.5 mL</td>
+                </tr>
+                <tr>
+                  <td>FLU VAX</td>
+                  <td>2013/01/02</td>
+                  <td>FLU VAX</td>
+                  <td>88</td>
+                  <td>Unknown</td>
+                </tr>
+                <tr>
+                  <td>TDAP</td>
+                  <td>2014/11/12</td>
+                  <td>TDAP</td>
+                  <td>115</td>
+                  <td>0.5 mL</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        <div id="Results">
+          <h3><a name="ID0EYKAG" href="#toc">Results</a></h3>
+            <table class="boogie" border="1" width="100%">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Name</th>
+                  <th>Value</th>
+                  <th>Unit</th>
+                  <th>Range</th>
+                  <th>Flag</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="7">
+                    <div class="scBold">Clinical Lists Update: Portal Account Link to Chart</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2015/06/26</td>
+                  <td>PORTALREG</td>
+                  <td>linked</td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td>Patient portal / website user has been registered</td>
+                </tr>
+                <tr>
+                  <td colspan="7">
+                    <div class="scBold">Clinical Lists Update: Method of Contact</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2015/06/26</td>
+                  <td>METHCONTACT</td>
+                  <td>secure message</td>
+                  <td> </td>
+                  <td> </td>
+                  <td> </td>
+                  <td>Patient's prefered method of contact</td>
+                </tr>
+                <tr>
+                  <td colspan="7">
+                    <div class="scBold">Lab Report: LIPID PANEL, T4, FREE, TSH</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2015/06/01</td>
+                  <td>TSH</td>
+                  <td>3.20</td>
+                  <td>u[iU]/mL</td>
+                  <td>0.40-4.50</td>
+                  <td> </td>
+                  <td>thyroid stimulating hormone, serum</td>
+                </tr>
+                <tr>
+                  <td>2015/06/01</td>
+                  <td>T4, FREE</td>
+                  <td>1.2</td>
+                  <td> </td>
+                  <td>0.8-1.8</td>
+                  <td> </td>
+                  <td>thyroxine, serum, free</td>
+                </tr>
+                <tr>
+                  <td>2015/06/01</td>
+                  <td>NON-HDL CHOL</td>
+                  <td>179 MG/DL (CALC)</td>
+                  <td>mg/dL</td>
+                  <td> </td>
+                  <td>H</td>
+                  <td>cholesterol, non-HDL, total</td>
+                </tr>
+                <tr>
+                  <td>2015/06/01</td>
+                  <td>CHOL/HDL</td>
+                  <td>7.6 (calc)</td>
+                  <td> </td>
+                  <td>&lt; OR = 5.0</td>
+                  <td>H</td>
+                  <td>cholesterol/HDL ratio, serum</td>
+                </tr>
+                <tr>
+                  <td>2015/06/01</td>
+                  <td>LDL (CALCUL)</td>
+                  <td>120 MG/DL (CALC)</td>
+                  <td> </td>
+                  <td>&lt;130</td>
+                  <td> </td>
+                  <td>lipoprotein, beta, serum, point, quantitative, calculated</td>
+                </tr>
+                <tr>
+                  <td>2015/06/01</td>
+                  <td>TRIGLYCERIDE</td>
+                  <td>293</td>
+                  <td> </td>
+                  <td>&lt;150</td>
+                  <td>H</td>
+                  <td>Triglyceride [Mass/volume] in Serum or Plasma</td>
+                </tr>
+                <tr>
+                  <td>2015/06/01</td>
+                  <td>HDL</td>
+                  <td>27</td>
+                  <td> </td>
+                  <td>&gt; OR = 40</td>
+                  <td>L</td>
+                  <td>Cholesterol in HDL [Mass/volume] in Serum or Plasma</td>
+                </tr>
+                <tr>
+                  <td>2015/06/01</td>
+                  <td>CHOLESTEROL</td>
+                  <td>206</td>
+                  <td>mg/dL</td>
+                  <td>125-200</td>
+                  <td>H</td>
+                  <td>Cholesterol [Mass/volume] in Serum or Plasma</td>
+                </tr>
+                <tr>
+                  <td colspan="7">
+                    <div class="scBold">Lab Report: COMPREHENSIVE METABOLIC PANEL, T4, FREE, TSH, HEMOGLOBIN A1c</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2015/02/05</td>
+                  <td>HGBA1C</td>
+                  <td>6.1 % OF TOTAL HGB</td>
+                  <td>%</td>
+                  <td>&lt;5.7</td>
+                  <td>H</td>
+                  <td>Hemoglobin A1c/Hemoglobin.total in Blood</td>
+                </tr>
+                <tr>
+                  <td>2015/02/05</td>
+                  <td>TSH</td>
+                  <td>2.70</td>
+                  <td>u[iU]/mL</td>
+                  <td>0.40-4.50</td>
+                  <td> </td>
+                  <td>thyroid stimulating hormone, serum</td>
+                </tr>
+                <tr>
+                  <td>2015/02/05</td>
+                  <td>T4, FREE</td>
+                  <td>1.3</td>
+                  <td> </td>
+                  <td>0.8-1.8</td>
+                  <td> </td>
+                  <td>thyroxine, serum, free</td>
+                </tr>
+                <tr>
+                  <td>2015/02/05</td>
+                  <td>SGPT (ALT)</td>
+                  <td>25</td>
+                  <td>U/L</td>
+                  <td>9-46</td>
+                  <td> </td>
+                  <td>alanine aminotransferase (SGPT), serum</td>
+                </tr>
+                <tr>
+                  <td>2015/02/05</td>
+                  <td>SGOT (AST)</td>
+                  <td>22</td>
+                  <td>U/L</td>
+                  <td>10-40</td>
+                  <td> </td>
+                  <td>aspartate aminotransferase (SGOT), serum</td>
+                </tr>
+                <tr>
+                  <td>2015/02/05</td>
+                  <td>ALK PHOS</td>
+                  <td>59</td>
+                  <td>U/L</td>
+                  <td>40-115</td>
+                  <td> </td>
+                  <td>alkaline phosphatase, serum</td>
+                </tr>
+                <tr>
+                  <td>2015/02/05</td>
+                  <td>BILI TOTAL</td>
+                  <td>0.3</td>
+                  <td>mg/dL</td>
+                  <td>0.2-1.2</td>
+                  <td> </td>
+                  <td>bilirubin, serum, total</td>
+                </tr>
+                <tr>
+                  <td>2015/02/05</td>
+                  <td>A/G RATIO</td>
+                  <td>1.5 (calc)</td>
+                  <td> </td>
+                  <td>1.0-2.5</td>
+                  <td> </td>
+                  <td>albumin/globulin ratio, serum</td>
+                </tr>
+                <tr>
+                  <td>2015/02/05</td>
+                  <td>GLOBULIN TOT</td>
+                  <td>3.0 G/DL (CALC)</td>
+                  <td>g/dL</td>
+                  <td>1.9-3.7</td>
+                  <td> </td>
+                  <td>globulins, serum, total</td>
+                </tr>
+                <tr>
+                  <td>2015/02/05</td>
+                  <td>ALBUMIN</td>
+                  <td>4.6</td>
+                  <td>g/dL</td>
+                  <td>3.6-5.1</td>
+                  <td> </td>
+                  <td>albumin, serum</td>
+                </tr>
+                <tr>
+                  <td>2015/02/05</td>
+                  <td>PROTEIN, TOT</td>
+                  <td>7.6</td>
+                  <td>g/dL</td>
+                  <td>6.1-8.1</td>
+                  <td> </td>
+                  <td>protein, total, serum</td>
+                </tr>
+                <tr>
+                  <td>2015/02/05</td>
+                  <td>CALCIUM</td>
+                  <td>9.5</td>
+                  <td>mg/dL</td>
+                  <td>8.6-10.3</td>
+                  <td> </td>
+                  <td>calcium, serum</td>
+                </tr>
+                <tr>
+                  <td>2015/02/05</td>
+                  <td>CO2 TOTAL</td>
+                  <td>24</td>
+                  <td>mmol/L</td>
+                  <td>19-30</td>
+                  <td> </td>
+                  <td>carbon dioxide, serum, total</td>
+                </tr>
+                <tr>
+                  <td>2015/02/05</td>
+                  <td>CHLORIDE</td>
+                  <td>103</td>
+                  <td>mmol/L</td>
+                  <td>98-110</td>
+                  <td> </td>
+                  <td>chloride, serum</td>
+                </tr>
+                <tr>
+                  <td>2015/02/05</td>
+                  <td>POTASSIUM</td>
+                  <td>4.3</td>
+                  <td>mmol/L</td>
+                  <td>3.5-5.3</td>
+                  <td> </td>
+                  <td>potassium, serum</td>
+                </tr>
+                <tr>
+                  <td>2015/02/05</td>
+                  <td>SODIUM</td>
+                  <td>139</td>
+                  <td>mmol/L</td>
+                  <td>135-146</td>
+                  <td> </td>
+                  <td>sodium, serum</td>
+                </tr>
+                <tr>
+                  <td>2015/02/05</td>
+                  <td>BUN/CREAT</td>
+                  <td>NOT APPLICABLE (calc)</td>
+                  <td> </td>
+                  <td>6-22</td>
+                  <td> </td>
+                  <td>urea nitrogen/creatinine ratio, serum</td>
+                </tr>
+                <tr>
+                  <td>2015/02/05</td>
+                  <td>GFRAA</td>
+                  <td>107</td>
+                  <td>mL/min</td>
+                  <td>&gt; OR = 60</td>
+                  <td> </td>
+                  <td>Glomerular Filtration rate African American</td>
+                </tr>
+                <tr>
+                  <td>2015/02/05</td>
+                  <td>GFR</td>
+                  <td>92</td>
+                  <td>mL/min</td>
+                  <td>&gt; OR = 60</td>
+                  <td> </td>
+                  <td>Glomerular Filtration rate</td>
+                </tr>
+                <tr>
+                  <td>2015/02/05</td>
+                  <td>CREATININE</td>
+                  <td>1.01</td>
+                  <td>mg/dL</td>
+                  <td>0.60-1.35</td>
+                  <td> </td>
+                  <td>creatinine, serum</td>
+                </tr>
+                <tr>
+                  <td>2015/02/05</td>
+                  <td>BUN</td>
+                  <td>24</td>
+                  <td>mg/dL</td>
+                  <td>7-25</td>
+                  <td> </td>
+                  <td>urea nitrogen, blood</td>
+                </tr>
+                <tr>
+                  <td>2015/02/05</td>
+                  <td>GLUCOSE SER</td>
+                  <td>90</td>
+                  <td>mg/dL</td>
+                  <td>65-99</td>
+                  <td> </td>
+                  <td>blood glucose</td>
+                </tr>
+                <tr>
+                  <td colspan="7">
+                    <div class="scBold">Lab Report: LIPID PANEL, T4, FREE, TSH</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2014/10/30</td>
+                  <td>TSH</td>
+                  <td>5.30</td>
+                  <td>u[iU]/mL</td>
+                  <td>0.40-4.50</td>
+                  <td>H</td>
+                  <td>thyroid stimulating hormone, serum</td>
+                </tr>
+                <tr>
+                  <td>2014/10/30</td>
+                  <td>T4, FREE</td>
+                  <td>1.1</td>
+                  <td> </td>
+                  <td>0.8-1.8</td>
+                  <td> </td>
+                  <td>thyroxine, serum, free</td>
+                </tr>
+                <tr>
+                  <td>2014/10/30</td>
+                  <td>NON-HDL CHOL</td>
+                  <td>175 MG/DL (CALC)</td>
+                  <td>mg/dL</td>
+                  <td> </td>
+                  <td>H</td>
+                  <td>cholesterol, non-HDL, total</td>
+                </tr>
+                <tr>
+                  <td>2014/10/30</td>
+                  <td>CHOL/HDL</td>
+                  <td>7.3 (calc)</td>
+                  <td> </td>
+                  <td>&lt; OR = 5.0</td>
+                  <td>H</td>
+                  <td>cholesterol/HDL ratio, serum</td>
+                </tr>
+                <tr>
+                  <td>2014/10/30</td>
+                  <td>LDL (CALCUL)</td>
+                  <td>116 MG/DL (CALC)</td>
+                  <td> </td>
+                  <td>&lt;130</td>
+                  <td> </td>
+                  <td>lipoprotein, beta, serum, point, quantitative, calculated</td>
+                </tr>
+                <tr>
+                  <td>2014/10/30</td>
+                  <td>TRIGLYCERIDE</td>
+                  <td>297</td>
+                  <td> </td>
+                  <td>&lt;150</td>
+                  <td>H</td>
+                  <td>Triglyceride [Mass/volume] in Serum or Plasma</td>
+                </tr>
+                <tr>
+                  <td>2014/10/30</td>
+                  <td>HDL</td>
+                  <td>28</td>
+                  <td> </td>
+                  <td>&gt; OR = 40</td>
+                  <td>L</td>
+                  <td>Cholesterol in HDL [Mass/volume] in Serum or Plasma</td>
+                </tr>
+                <tr>
+                  <td>2014/10/30</td>
+                  <td>CHOLESTEROL</td>
+                  <td>203</td>
+                  <td>mg/dL</td>
+                  <td>125-200</td>
+                  <td>H</td>
+                  <td>Cholesterol [Mass/volume] in Serum or Plasma</td>
+                </tr>
+                <tr>
+                  <td colspan="7">
+                    <div class="scBold">Letter: Test Results Letter</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2014/02/12</td>
+                  <td>LDL GOAL</td>
+                  <td>130</td>
+                  <td>mg/dL</td>
+                  <td> </td>
+                  <td> </td>
+                  <td>LDL target level</td>
+                </tr>
+                <tr>
+                  <td colspan="7">
+                    <div class="scBold">Lab Report: LIPID PANEL, T4, FREE, TSH W/REFLEX TO FT4</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2014/02/01</td>
+                  <td>TSH</td>
+                  <td>4.95</td>
+                  <td>u[iU]/mL</td>
+                  <td>0.40-4.50</td>
+                  <td>H</td>
+                  <td>thyroid stimulating hormone, serum</td>
+                </tr>
+                <tr>
+                  <td>2014/02/01</td>
+                  <td>T4, FREE</td>
+                  <td>1.2</td>
+                  <td> </td>
+                  <td>0.8-1.8</td>
+                  <td> </td>
+                  <td>thyroxine, serum, free</td>
+                </tr>
+                <tr>
+                  <td>2014/02/01</td>
+                  <td>NON-HDL CHOL</td>
+                  <td>170 MG/DL (CALC)</td>
+                  <td>mg/dL</td>
+                  <td> </td>
+                  <td>H</td>
+                  <td>cholesterol, non-HDL, total</td>
+                </tr>
+                <tr>
+                  <td>2014/02/01</td>
+                  <td>CHOL/HDL</td>
+                  <td>7.5 (calc)</td>
+                  <td> </td>
+                  <td>&lt; OR = 5.0</td>
+                  <td>H</td>
+                  <td>cholesterol/HDL ratio, serum</td>
+                </tr>
+                <tr>
+                  <td>2014/02/01</td>
+                  <td>LDL (CALCUL)</td>
+                  <td>110 MG/DL (CALC)</td>
+                  <td> </td>
+                  <td>&lt;130</td>
+                  <td> </td>
+                  <td>lipoprotein, beta, serum, point, quantitative, calculated</td>
+                </tr>
+                <tr>
+                  <td>2014/02/01</td>
+                  <td>TRIGLYCERIDE</td>
+                  <td>300</td>
+                  <td> </td>
+                  <td>&lt;150</td>
+                  <td>H</td>
+                  <td>Triglyceride [Mass/volume] in Serum or Plasma</td>
+                </tr>
+                <tr>
+                  <td>2014/02/01</td>
+                  <td>HDL</td>
+                  <td>26</td>
+                  <td> </td>
+                  <td>&gt; OR = 40</td>
+                  <td>L</td>
+                  <td>Cholesterol in HDL [Mass/volume] in Serum or Plasma</td>
+                </tr>
+                <tr>
+                  <td>2014/02/01</td>
+                  <td>CHOLESTEROL</td>
+                  <td>196</td>
+                  <td>mg/dL</td>
+                  <td>125-200</td>
+                  <td> </td>
+                  <td>Cholesterol [Mass/volume] in Serum or Plasma</td>
+                </tr>
+                <tr>
+                  <td colspan="7">
+                    <div class="scBold">Lab Report: LIPID PANEL, COMPREHENSIVE METABOLIC PANEL, CBC (INCLUDES DI ...</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>HGBA1C</td>
+                  <td>5.8 % OF TOTAL HGB</td>
+                  <td>%</td>
+                  <td>&lt;5.7</td>
+                  <td>H</td>
+                  <td>Hemoglobin A1c/Hemoglobin.total in Blood</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>BASOPHIL %</td>
+                  <td>0.4</td>
+                  <td>%</td>
+                  <td> </td>
+                  <td> </td>
+                  <td>basophils as percent of blood leukocytes</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>EOSINOPHIL %</td>
+                  <td>4.4</td>
+                  <td>%</td>
+                  <td> </td>
+                  <td> </td>
+                  <td>eosinophils as percent of blood leukocytes</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>MONOS % MANU</td>
+                  <td>8.8</td>
+                  <td>%</td>
+                  <td> </td>
+                  <td> </td>
+                  <td>monocytes as percent of blood leukocytes, manual count</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>LYMPH COUNT</td>
+                  <td>25.2 %</td>
+                  <td>10*3/mm3</td>
+                  <td> </td>
+                  <td> </td>
+                  <td>lymphocyte count, blood</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>PMN SEGS</td>
+                  <td>61.2</td>
+                  <td>%</td>
+                  <td> </td>
+                  <td> </td>
+                  <td>neutrophils, segmented as percent of blood leukocytes</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>BASOPH COUNT</td>
+                  <td>29 CELLS/UL</td>
+                  <td>10*3/mm3</td>
+                  <td>0-200</td>
+                  <td> </td>
+                  <td>basophil count, blood</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>EOS COUNT</td>
+                  <td>321 CELLS/UL</td>
+                  <td>/mm3</td>
+                  <td>15-500</td>
+                  <td> </td>
+                  <td>eosinophil count, blood</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>MONOSCT AUTO</td>
+                  <td>642 CELLS/UL</td>
+                  <td>10*3/uL</td>
+                  <td>200-950</td>
+                  <td> </td>
+                  <td>monocyte count, blood, automated</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>LYMPHCT AUTO</td>
+                  <td>1840 CELLS/UL</td>
+                  <td>10*3/mm3</td>
+                  <td>850-3900</td>
+                  <td> </td>
+                  <td>lymphocyte count, blood, automated</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>NEUTRO COUNT</td>
+                  <td>4468 CELLS/UL</td>
+                  <td>10*3/mm3</td>
+                  <td>1500-7800</td>
+                  <td> </td>
+                  <td>neutrophil count, blood</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>PLATELETS</td>
+                  <td>272 THOUSAND/UL</td>
+                  <td>/mm3</td>
+                  <td>140-400</td>
+                  <td> </td>
+                  <td>platelet count</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>RDW</td>
+                  <td>14.8</td>
+                  <td>%</td>
+                  <td>11.0-15.0</td>
+                  <td> </td>
+                  <td>red blood cell distribution width</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>MCHC</td>
+                  <td>32.8 G/DL</td>
+                  <td>%</td>
+                  <td>32.0-36.0</td>
+                  <td> </td>
+                  <td>mean corpuscular hemoglobin concentration, RBC</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>MCH</td>
+                  <td>27.3</td>
+                  <td>pg</td>
+                  <td>27.0-33.0</td>
+                  <td> </td>
+                  <td>mean corpuscular hemoglobin, RBC</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>MCV</td>
+                  <td>83.2</td>
+                  <td>fL</td>
+                  <td>80.0-100.0</td>
+                  <td> </td>
+                  <td>mean corpuscular volume, RBC</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>HCT</td>
+                  <td>43.8</td>
+                  <td>%</td>
+                  <td>38.5-50.0</td>
+                  <td> </td>
+                  <td>hematocrit, blood</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>HGB</td>
+                  <td>14.4</td>
+                  <td>g/dL</td>
+                  <td>13.2-17.1</td>
+                  <td> </td>
+                  <td>hemoglobin, blood</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>RBC</td>
+                  <td>5.26 MILLION/UL</td>
+                  <td>10*6/mm3</td>
+                  <td>4.20-5.80</td>
+                  <td> </td>
+                  <td>erythrocyte (RBC) count</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>WBC</td>
+                  <td>7.3 THOUSAND/UL</td>
+                  <td>10*3/mm3</td>
+                  <td>3.8-10.8</td>
+                  <td> </td>
+                  <td>leukocyte count, blood</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>SGPT (ALT)</td>
+                  <td>38</td>
+                  <td>U/L</td>
+                  <td>9-60</td>
+                  <td> </td>
+                  <td>alanine aminotransferase (SGPT), serum</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>SGOT (AST)</td>
+                  <td>22</td>
+                  <td>U/L</td>
+                  <td>10-40</td>
+                  <td> </td>
+                  <td>aspartate aminotransferase (SGOT), serum</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>ALK PHOS</td>
+                  <td>55</td>
+                  <td>U/L</td>
+                  <td>40-115</td>
+                  <td> </td>
+                  <td>alkaline phosphatase, serum</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>BILI TOTAL</td>
+                  <td>0.4</td>
+                  <td>mg/dL</td>
+                  <td>0.2-1.2</td>
+                  <td> </td>
+                  <td>bilirubin, serum, total</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>A/G RATIO</td>
+                  <td>1.7 (calc)</td>
+                  <td> </td>
+                  <td>1.0-2.5</td>
+                  <td> </td>
+                  <td>albumin/globulin ratio, serum</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>GLOBULIN TOT</td>
+                  <td>2.7 G/DL (CALC)</td>
+                  <td>g/dL</td>
+                  <td>1.9-3.7</td>
+                  <td> </td>
+                  <td>globulins, serum, total</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>ALBUMIN</td>
+                  <td>4.7</td>
+                  <td>g/dL</td>
+                  <td>3.6-5.1</td>
+                  <td> </td>
+                  <td>albumin, serum</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>PROTEIN, TOT</td>
+                  <td>7.4</td>
+                  <td>g/dL</td>
+                  <td>6.1-8.1</td>
+                  <td> </td>
+                  <td>protein, total, serum</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>CALCIUM</td>
+                  <td>9.2</td>
+                  <td>mg/dL</td>
+                  <td>8.6-10.3</td>
+                  <td> </td>
+                  <td>calcium, serum</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>CO2 TOTAL</td>
+                  <td>27</td>
+                  <td>mmol/L</td>
+                  <td>19-30</td>
+                  <td> </td>
+                  <td>carbon dioxide, serum, total</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>CHLORIDE</td>
+                  <td>104</td>
+                  <td>mmol/L</td>
+                  <td>98-110</td>
+                  <td> </td>
+                  <td>chloride, serum</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>POTASSIUM</td>
+                  <td>5.1</td>
+                  <td>mmol/L</td>
+                  <td>3.5-5.3</td>
+                  <td> </td>
+                  <td>potassium, serum</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>SODIUM</td>
+                  <td>140</td>
+                  <td>mmol/L</td>
+                  <td>135-146</td>
+                  <td> </td>
+                  <td>sodium, serum</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>BUN/CREAT</td>
+                  <td>NOT APPLICABLE (calc)</td>
+                  <td> </td>
+                  <td>6-22</td>
+                  <td> </td>
+                  <td>urea nitrogen/creatinine ratio, serum</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>GFRAA</td>
+                  <td>119</td>
+                  <td>mL/min</td>
+                  <td>&gt; OR = 60</td>
+                  <td> </td>
+                  <td>Glomerular Filtration rate African American</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>GFR</td>
+                  <td>103</td>
+                  <td>mL/min</td>
+                  <td>&gt; OR = 60</td>
+                  <td> </td>
+                  <td>Glomerular Filtration rate</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>CREATININE</td>
+                  <td>0.93</td>
+                  <td>mg/dL</td>
+                  <td>0.60-1.35</td>
+                  <td> </td>
+                  <td>creatinine, serum</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>BUN</td>
+                  <td>15</td>
+                  <td>mg/dL</td>
+                  <td>7-25</td>
+                  <td> </td>
+                  <td>urea nitrogen, blood</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>GLUCOSE SER</td>
+                  <td>97</td>
+                  <td>mg/dL</td>
+                  <td>65-99</td>
+                  <td> </td>
+                  <td>blood glucose</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>NON-HDL CHOL</td>
+                  <td>178 MG/DL (CALC)</td>
+                  <td>mg/dL</td>
+                  <td> </td>
+                  <td>H</td>
+                  <td>cholesterol, non-HDL, total</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>CHOL/HDL</td>
+                  <td>7.1 (calc)</td>
+                  <td> </td>
+                  <td>&lt; OR = 5.0</td>
+                  <td>H</td>
+                  <td>cholesterol/HDL ratio, serum</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>LDL (CALCUL)</td>
+                  <td>130 MG/DL (CALC)</td>
+                  <td> </td>
+                  <td>&lt;130</td>
+                  <td>H</td>
+                  <td>lipoprotein, beta, serum, point, quantitative, calculated</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>TRIGLYCERIDE</td>
+                  <td>239</td>
+                  <td> </td>
+                  <td>&lt;150</td>
+                  <td>H</td>
+                  <td>Triglyceride [Mass/volume] in Serum or Plasma</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>HDL</td>
+                  <td>29</td>
+                  <td> </td>
+                  <td>&gt; OR = 40</td>
+                  <td>L</td>
+                  <td>Cholesterol in HDL [Mass/volume] in Serum or Plasma</td>
+                </tr>
+                <tr>
+                  <td>2013/01/16</td>
+                  <td>CHOLESTEROL</td>
+                  <td>207</td>
+                  <td>mg/dL</td>
+                  <td>125-200</td>
+                  <td>H</td>
+                  <td>Cholesterol [Mass/volume] in Serum or Plasma</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        <div id="Medications">
+          <h3><a name="ID0ELZEK" href="#toc">Medications</a></h3>
+            <table class="boogie" border="1" width="100%">
+              <thead>
+                <tr>
+                  <th>Medication</th>
+                  <th>Instructions</th>
+                  <th>Start Date</th>
+                  <th>Stop Date</th>
+                  <th>Generic Name</th>
+                  <th>NDC</th>
+                  <th>Provider</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>FENOFIBRATE 48 MG TABS</td>
+                  <td>take one tablet daily</td>
+                  <td>2015/06/24</td>
+                  <td> </td>
+                  <td>FENOFIBRATE</td>
+                  <td>00093206198</td>
+                  <td>Maria DeJoseph MD</td>
+                </tr>
+                <tr>
+                  <td>SYNTHROID 88 MCG TABS</td>
+                  <td>take one tablet daily</td>
+                  <td>2014/11/12</td>
+                  <td> </td>
+                  <td>LEVOTHYROXINE SODIUM</td>
+                  <td>00074659490</td>
+                  <td>Maria DeJoseph MD</td>
+                </tr>
+                <tr>
+                  <td>PROBIOTICS</td>
+                  <td> </td>
+                  <td>2013/01/02</td>
+                  <td>2014/10/03</td>
+                  <td>PROBIOTICS</td>
+                  <td> </td>
+                  <td>Donald S. Collins MD</td>
+                </tr>
+                <tr>
+                  <td>SUMATRIPTAN SUCCINATE 50 MG TABS</td>
+                  <td>take one tablet at onset of migraine may repeat in 2 hours if needed;  Do not exceed four tablets in a twenty four hour period</td>
+                  <td>2014/01/14</td>
+                  <td> </td>
+                  <td>SUMATRIPTAN SUCCINATE</td>
+                  <td>33261066309</td>
+                  <td>Maria DeJoseph MD</td>
+                </tr>
+                <tr>
+                  <td>PROBIOTICS</td>
+                  <td> </td>
+                  <td>2013/01/02</td>
+                  <td> </td>
+                  <td>PROBIOTICS</td>
+                  <td> </td>
+                  <td>Maria DeJoseph MD</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        <div id="PlanofCare">
+          <h3><a name="ID0EAFGK" href="#toc">Plan of Care</a></h3>
+            <table class="boogie" border="1" width="100%">
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Date</th>
+                  <th>Detail</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Appointment</td>
+                  <td>2015/10/05 03:00 PM</td>
+                  <td>Cheryl L. Perrine, 4745 Ogletown-Stanton Rd, Map1 Suite 220, Newark, DE, 19713, +1-302-623-7600</td>
+                </tr>
+                <tr>
+                  <td>Appointment</td>
+                  <td>2015/12/02 02:30 PM</td>
+                  <td>Maria DeJoseph MD, Greenville Center, 3710 Kennett Pike, Greenville, DE, 19807, +1-302-623-6300</td>
+                </tr>
+                <tr>
+                  <td>Pending order</td>
+                  <td>2015/06/24</td>
+                  <td>Lipid Panel (Cardiac Risk Eval) - Fasting</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        <div id="ConditionsorProblems">
+          <h3><a name="ID0E5NGK" href="#toc">Conditions or Problems</a></h3>
+            <table class="boogie" border="1" width="100%">
+              <thead>
+                <tr>
+                  <th>Problem Name</th>
+                  <th>Problem Code</th>
+                  <th>Onset Date</th>
+                  <th>Status</th>
+                  <th>Entry Date</th>
+                  <th>Provider</th>
+                  <th>Comment</th>
+                  <th>Standard Description</th>
+                  <th>Annotate</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>HYPOTHYROIDISM</td>
+                  <td>40930008 (SNOMED CT)</td>
+                  <td>2014/10/21</td>
+                  <td>Active</td>
+                  <td>2014/10/22</td>
+                  <td>Maria DeJoseph MD</td>
+                  <td> </td>
+                  <td>Hypothyroidism</td>
+                  <td> </td>
+                </tr>
+                <tr>
+                  <td>ABNORMAL THYROID FUNCTION TESTS</td>
+                  <td>312399001 (SNOMED CT)</td>
+                  <td>2014/10/21</td>
+                  <td>Inactive</td>
+                  <td>2014/10/22</td>
+                  <td>Maria DeJoseph MD</td>
+                  <td> </td>
+                  <td>Thyroid function tests abnormal</td>
+                  <td> </td>
+                </tr>
+                <tr>
+                  <td>OTHER DISEASES OF NASAL CAVITY AND SINUSES</td>
+                  <td>232340005 (SNOMED CT)</td>
+                  <td>2014/03/11</td>
+                  <td>Active</td>
+                  <td>2014/03/11</td>
+                  <td>Kristen L. Figun</td>
+                  <td> </td>
+                  <td>Disorder of nasal cavity</td>
+                  <td> </td>
+                </tr>
+                <tr>
+                  <td>OBESITY</td>
+                  <td>414916001 (SNOMED CT)</td>
+                  <td>2014/03/11</td>
+                  <td>Active</td>
+                  <td>2014/03/11</td>
+                  <td>Kristen L. Figun</td>
+                  <td> </td>
+                  <td>Obesity</td>
+                  <td> </td>
+                </tr>
+                <tr>
+                  <td>HYPERCHOLESTEROLEMIA</td>
+                  <td>13644009 (SNOMED CT)</td>
+                  <td>2014/03/11</td>
+                  <td>Active</td>
+                  <td>2014/03/11</td>
+                  <td>Kristen L. Figun</td>
+                  <td> </td>
+                  <td>Hypercholesterolemia</td>
+                  <td>mild</td>
+                </tr>
+                <tr>
+                  <td>ENLARGEMENT OF LYMPH NODES</td>
+                  <td>30746006 (SNOMED CT)</td>
+                  <td>2014/01/14</td>
+                  <td>Active</td>
+                  <td>2014/01/14</td>
+                  <td>Maria DeJoseph MD</td>
+                  <td> </td>
+                  <td>Lymphadenopathy</td>
+                  <td> </td>
+                </tr>
+                <tr>
+                  <td>SCREENING FOR LIPOID DISORDERS</td>
+                  <td>Z13.89 (ICD-10-CM)</td>
+                  <td>2014/01/14</td>
+                  <td>Active</td>
+                  <td>2014/01/14</td>
+                  <td>Maria DeJoseph MD</td>
+                  <td> </td>
+                  <td>Encounter for screening for other disorder</td>
+                  <td> </td>
+                </tr>
+                <tr>
+                  <td>RISK OF SLEEP APNEA</td>
+                  <td>313424005 (SNOMED CT)</td>
+                  <td>2013/01/02</td>
+                  <td>Correction</td>
+                  <td>2013/01/02</td>
+                  <td>Maria DeJoseph MD</td>
+                  <td> </td>
+                  <td>At risk of disease</td>
+                  <td> </td>
+                </tr>
+                <tr>
+                  <td>SLEEP APNEA, OBSTRUCTIVE</td>
+                  <td>78275009 (SNOMED CT)</td>
+                  <td>2013/01/30</td>
+                  <td>Active</td>
+                  <td>2013/01/30</td>
+                  <td>Maria DeJoseph MD</td>
+                  <td> </td>
+                  <td>Obstructive sleep apnea syndrome</td>
+                  <td> </td>
+                </tr>
+                <tr>
+                  <td>SCREENING FOR THYROID DISORDER</td>
+                  <td>Z13.29 (ICD-10-CM)</td>
+                  <td>2013/01/30</td>
+                  <td>Active</td>
+                  <td>2013/01/30</td>
+                  <td>Maria DeJoseph MD</td>
+                  <td> </td>
+                  <td>Encounter for screening for other suspected endocrine disorder</td>
+                  <td> </td>
+                </tr>
+                <tr>
+                  <td>COMMON MIGRAINE</td>
+                  <td>56097005 (SNOMED CT)</td>
+                  <td>2013/01/02</td>
+                  <td>Active</td>
+                  <td>2013/01/02</td>
+                  <td>Maria DeJoseph MD</td>
+                  <td> </td>
+                  <td>Migraine without aura</td>
+                  <td> </td>
+                </tr>
+                <tr>
+                  <td>BLOOD IN STOOL</td>
+                  <td>405729008 (SNOMED CT)</td>
+                  <td>2013/01/02</td>
+                  <td>Active</td>
+                  <td>2013/01/02</td>
+                  <td>Maria DeJoseph MD</td>
+                  <td> </td>
+                  <td>Hematochezia</td>
+                  <td> </td>
+                </tr>
+                <tr>
+                  <td>RISK OF SLEEP APNEA</td>
+                  <td>313424005 (SNOMED CT)</td>
+                  <td>2013/01/02</td>
+                  <td>Removed</td>
+                  <td>2013/01/02</td>
+                  <td>Maria DeJoseph MD</td>
+                  <td> </td>
+                  <td>At risk of disease</td>
+                  <td> </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        <div id="Procedures">
+          <h3><a name="ID0EAXAM" href="#toc">Procedures</a></h3>
+            <table class="boogie" border="1" width="100%">
+              <thead>
+                <tr>
+                  <th>Code</th>
+                  <th>Procedure Name</th>
+                  <th>Date</th>
+                  <th>Entry Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>CPT-80061</td>
+                  <td>Lipid Panel (Cardiac Risk Eval) - Fasting</td>
+                  <td>2015/05/18</td>
+                  <td>2015/05/18</td>
+                </tr>
+                <tr>
+                  <td>84439, 84443</td>
+                  <td>Thyroid - TSH &amp; free T4</td>
+                  <td>2015/05/18</td>
+                  <td>2015/05/18</td>
+                </tr>
+                <tr>
+                  <td>90715,90471</td>
+                  <td>Tdap 7+ yrs - 0.5mL IM - (V06.1)</td>
+                  <td>2014/11/12</td>
+                  <td>2014/11/12</td>
+                </tr>
+                <tr>
+                  <td>CPT-83036</td>
+                  <td>Hemoglobin A1C (HGBA1C)</td>
+                  <td>2014/11/12</td>
+                  <td>2014/11/12</td>
+                </tr>
+                <tr>
+                  <td>CPT-80053</td>
+                  <td>CMP (Comprehensive Metabolic Panel)</td>
+                  <td>2014/11/12</td>
+                  <td>2014/11/12</td>
+                </tr>
+                <tr>
+                  <td>84439, 84443</td>
+                  <td>Thyroid - TSH &amp; free T4</td>
+                  <td>2014/11/12</td>
+                  <td>2014/11/12</td>
+                </tr>
+                <tr>
+                  <td>CPT-76536</td>
+                  <td>Ultrasound - Thyroid</td>
+                  <td>2014/11/12</td>
+                  <td>2014/11/12</td>
+                </tr>
+                <tr>
+                  <td>90658,90471</td>
+                  <td>Flu Vaccine - Fluzone 0.5 mL vial 3+ yrs - (V04.81)</td>
+                  <td>2014/11/12</td>
+                  <td>2014/11/12</td>
+                </tr>
+                <tr>
+                  <td>CPT-80061</td>
+                  <td>Lipid Panel (Cardiac Risk Eval) - Fasting</td>
+                  <td>2014/10/21</td>
+                  <td>2014/10/21</td>
+                </tr>
+                <tr>
+                  <td>84439, 84443</td>
+                  <td>Thyroid - TSH &amp; free T4</td>
+                  <td>2014/10/21</td>
+                  <td>2014/10/21</td>
+                </tr>
+                <tr>
+                  <td>CPT-90471</td>
+                  <td>* Immunization Admin - Injection - one injectable vaccine</td>
+                  <td>2014/01/14</td>
+                  <td>2014/01/14</td>
+                </tr>
+                <tr>
+                  <td>84443,84439</td>
+                  <td>TSH w/ reflex free T4</td>
+                  <td>2014/01/14</td>
+                  <td>2014/01/14</td>
+                </tr>
+                <tr>
+                  <td>CPT-80061</td>
+                  <td>Lipid Panel (Cardiac Risk Eval) - Fasting</td>
+                  <td>2014/01/14</td>
+                  <td>2014/01/14</td>
+                </tr>
+                <tr>
+                  <td>90658,90471</td>
+                  <td>Flu Vaccine - 3+ yrs - 0.5 mL IM - (V04.81) </td>
+                  <td>2014/01/14</td>
+                  <td>2014/01/14</td>
+                </tr>
+                <tr>
+                  <td>84439, 84443</td>
+                  <td>Thyroid - TSH &amp; free T4</td>
+                  <td>2013/01/30</td>
+                  <td>2013/01/30</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        <div id="SocialHistory">
+          <h3><a name="ID0EMHDM" href="#toc">Social History</a></h3>
+            <table class="boogie" border="1" width="100%">
+              <thead>
+                <tr>
+                  <th>Concept Description</th>
+                  <th>Observation Name</th>
+                  <th>Observation Value</th>
+                  <th>Units</th>
+                  <th>Start Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Never smoker</td>
+                  <td>SMOK STATUS</td>
+                  <td>Never smoker</td>
+                  <td> </td>
+                  <td>2015/06/24</td>
+                </tr>
+                <tr>
+                  <td>Never smoker</td>
+                  <td>SMOK STATUS</td>
+                  <td>Never smoker</td>
+                  <td> </td>
+                  <td>2014/11/12</td>
+                </tr>
+                <tr>
+                  <td>Former smoker</td>
+                  <td>SMOK STATUS</td>
+                  <td>Former smoker</td>
+                  <td> </td>
+                  <td>2014/10/03</td>
+                </tr>
+                <tr>
+                  <td>Never smoker</td>
+                  <td>SMOK STATUS</td>
+                  <td>never smoker</td>
+                  <td> </td>
+                  <td>2014/01/14</td>
+                </tr>
+                <tr>
+                  <td>Alcohol intake</td>
+                  <td>ALCOHOL COMM</td>
+                  <td>yes</td>
+                  <td> </td>
+                  <td>2013/01/02</td>
+                </tr>
+                <tr>
+                  <td>Alcohol intake</td>
+                  <td>ETOH USE</td>
+                  <td>rarely</td>
+                  <td> </td>
+                  <td>2013/01/02</td>
+                </tr>
+                <tr>
+                  <td>Details of drug misuse behavior</td>
+                  <td>DRUG USE</td>
+                  <td>no</td>
+                  <td> </td>
+                  <td>2013/01/02</td>
+                </tr>
+                <tr>
+                  <td>Exercise</td>
+                  <td>REGULAREXERC</td>
+                  <td>no</td>
+                  <td> </td>
+                  <td>2013/01/02</td>
+                </tr>
+                <tr>
+                  <td>Health-related behavior</td>
+                  <td>HIV RSK EVAL</td>
+                  <td>no</td>
+                  <td> </td>
+                  <td>2013/01/02</td>
+                </tr>
+                <tr>
+                  <td>Never smoker</td>
+                  <td>SMOK STATUS</td>
+                  <td>never smoker</td>
+                  <td> </td>
+                  <td>2013/01/02</td>
+                </tr>
+                <tr>
+                  <td>Tobacco use and exposure</td>
+                  <td>PAS CIG SMOK</td>
+                  <td>no</td>
+                  <td> </td>
+                  <td>2013/01/02</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        <div id="VitalSigns">
+          <h3><a name="ID0ESCEM" href="#toc">Vital Signs</a></h3>
+            <table class="boogie" border="1" width="100%">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Name</th>
+                  <th>Value</th>
+                  <th>Unit</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>2015/06/24</td>
+                  <td>BMI (Body Mass Index)</td>
+                  <td>44.97</td>
+                  <td>kg/m2</td>
+                  <td>body mass index - 41909-3</td>
+                </tr>
+                <tr>
+                  <td>2015/06/24</td>
+                  <td>BP Diastolic</td>
+                  <td>88</td>
+                  <td>mm[Hg]</td>
+                  <td>blood pressure, diastolic - 8462-4</td>
+                </tr>
+                <tr>
+                  <td>2015/06/24</td>
+                  <td>BP Systolic</td>
+                  <td>140</td>
+                  <td>mm[Hg]</td>
+                  <td>blood pressure, systolic - 8480-6</td>
+                </tr>
+                <tr>
+                  <td>2015/06/24</td>
+                  <td>Body Temperature</td>
+                  <td>98.2</td>
+                  <td> </td>
+                  <td>temperature E&amp;M</td>
+                </tr>
+                <tr>
+                  <td>2015/06/24</td>
+                  <td>Weight Measured</td>
+                  <td>335</td>
+                  <td>[lb_av]</td>
+                  <td>weight E&amp;M - 3141-9</td>
+                </tr>
+                <tr>
+                  <td>2015/01/20</td>
+                  <td>BMI (Body Mass Index)</td>
+                  <td>44.43</td>
+                  <td>kg/m2</td>
+                  <td>body mass index - 41909-3</td>
+                </tr>
+                <tr>
+                  <td>2015/01/20</td>
+                  <td>BP Diastolic</td>
+                  <td>88</td>
+                  <td>mm[Hg]</td>
+                  <td>blood pressure, diastolic - 8462-4</td>
+                </tr>
+                <tr>
+                  <td>2015/01/20</td>
+                  <td>BP Systolic</td>
+                  <td>142</td>
+                  <td>mm[Hg]</td>
+                  <td>blood pressure, systolic - 8480-6</td>
+                </tr>
+                <tr>
+                  <td>2015/01/20</td>
+                  <td>Weight Measured</td>
+                  <td>331</td>
+                  <td>[lb_av]</td>
+                  <td>weight E&amp;M - 3141-9</td>
+                </tr>
+                <tr>
+                  <td>2014/11/12</td>
+                  <td>BMI (Body Mass Index)</td>
+                  <td>44.70</td>
+                  <td>kg/m2</td>
+                  <td>body mass index - 41909-3</td>
+                </tr>
+                <tr>
+                  <td>2014/11/12</td>
+                  <td>BP Diastolic</td>
+                  <td>94</td>
+                  <td>mm[Hg]</td>
+                  <td>blood pressure, diastolic - 8462-4</td>
+                </tr>
+                <tr>
+                  <td>2014/11/12</td>
+                  <td>BP Systolic</td>
+                  <td>138</td>
+                  <td>mm[Hg]</td>
+                  <td>blood pressure, systolic - 8480-6</td>
+                </tr>
+                <tr>
+                  <td>2014/11/12</td>
+                  <td>Weight Measured</td>
+                  <td>333</td>
+                  <td>[lb_av]</td>
+                  <td>weight E&amp;M - 3141-9</td>
+                </tr>
+                <tr>
+                  <td>2014/10/03</td>
+                  <td>BMI (Body Mass Index)</td>
+                  <td>43.79</td>
+                  <td>kg/m2</td>
+                  <td>body mass index - 41909-3</td>
+                </tr>
+                <tr>
+                  <td>2014/10/03</td>
+                  <td>BP Diastolic</td>
+                  <td>76</td>
+                  <td>mm[Hg]</td>
+                  <td>blood pressure, diastolic - 8462-4</td>
+                </tr>
+                <tr>
+                  <td>2014/10/03</td>
+                  <td>BP Systolic</td>
+                  <td>136</td>
+                  <td>mm[Hg]</td>
+                  <td>blood pressure, systolic - 8480-6</td>
+                </tr>
+                <tr>
+                  <td>2014/10/03</td>
+                  <td>Heart Rate</td>
+                  <td>76</td>
+                  <td>/min</td>
+                  <td>pulse rate E&amp;M - 8867-4</td>
+                </tr>
+                <tr>
+                  <td>2014/10/03</td>
+                  <td>Height</td>
+                  <td>72.5</td>
+                  <td>[in_us]</td>
+                  <td>height E&amp;M - 8302-2</td>
+                </tr>
+                <tr>
+                  <td>2014/10/03</td>
+                  <td>O2 % BldC Oximetry</td>
+                  <td>96</td>
+                  <td> </td>
+                  <td>pulse oximetry, first reading</td>
+                </tr>
+                <tr>
+                  <td>2014/10/03</td>
+                  <td>Weight Measured</td>
+                  <td>326.2</td>
+                  <td>[lb_av]</td>
+                  <td>weight E&amp;M - 3141-9</td>
+                </tr>
+                <tr>
+                  <td>2014/01/14</td>
+                  <td>BMI (Body Mass Index)</td>
+                  <td>43.76</td>
+                  <td>kg/m2</td>
+                  <td>body mass index - 41909-3</td>
+                </tr>
+                <tr>
+                  <td>2014/01/14</td>
+                  <td>BP Diastolic</td>
+                  <td>80</td>
+                  <td>mm[Hg]</td>
+                  <td>blood pressure, diastolic - 8462-4</td>
+                </tr>
+                <tr>
+                  <td>2014/01/14</td>
+                  <td>BP Systolic</td>
+                  <td>128</td>
+                  <td>mm[Hg]</td>
+                  <td>blood pressure, systolic - 8480-6</td>
+                </tr>
+                <tr>
+                  <td>2014/01/14</td>
+                  <td>Weight Measured</td>
+                  <td>326</td>
+                  <td>[lb_av]</td>
+                  <td>weight E&amp;M - 3141-9</td>
+                </tr>
+                <tr>
+                  <td>2013/01/02</td>
+                  <td>BMI (Body Mass Index)</td>
+                  <td>42.29</td>
+                  <td>kg/m2</td>
+                  <td>body mass index - 41909-3</td>
+                </tr>
+                <tr>
+                  <td>2013/01/02</td>
+                  <td>BP Diastolic</td>
+                  <td>86</td>
+                  <td>mm[Hg]</td>
+                  <td>blood pressure, diastolic - 8462-4</td>
+                </tr>
+                <tr>
+                  <td>2013/01/02</td>
+                  <td>BP Systolic</td>
+                  <td>132</td>
+                  <td>mm[Hg]</td>
+                  <td>blood pressure, systolic - 8480-6</td>
+                </tr>
+                <tr>
+                  <td>2013/01/02</td>
+                  <td>Body Temperature</td>
+                  <td>97.5</td>
+                  <td> </td>
+                  <td>temperature E&amp;M</td>
+                </tr>
+                <tr>
+                  <td>2013/01/02</td>
+                  <td>Heart Rate</td>
+                  <td>87</td>
+                  <td>/min</td>
+                  <td>pulse rate E&amp;M - 8867-4</td>
+                </tr>
+                <tr>
+                  <td>2013/01/02</td>
+                  <td>Height</td>
+                  <td>72.5</td>
+                  <td>[in_us]</td>
+                  <td>height E&amp;M - 8302-2</td>
+                </tr>
+                <tr>
+                  <td>2013/01/02</td>
+                  <td>Weight Measured</td>
+                  <td>315</td>
+                  <td>[lb_av]</td>
+                  <td>weight E&amp;M - 3141-9</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
+   <style>
+        #body-container {
+            max-width: 800px;
+            padding: 1em;
+        }
+        body {
+            background-image: none;
+            overflow: hidden;
+        }
+    </style>

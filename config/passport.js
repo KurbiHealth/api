@@ -8,8 +8,11 @@ will be handled by Express and generate an HTTP 500 response;
 2) The provided credentials are invalid (there is no user with the supplied e-mail 
 address, or the password is a mismatch); in that case, you don't generate an 
 error, but you pass a false as the user object: next(null, false); this will 
-trigger the failureRedirect (if you don't define one, a HTTP 401 Unauthorized 
-response will be generated);
+trigger the failureRedirect (if you don't define one, 
+
+	*** a HTTP 401 Unauthorized response will be generated ***
+
+);
 
 3) Everything checks out, you have a valid user object, so you pass it along: 
 next(null, user); this will trigger the successRedirect;

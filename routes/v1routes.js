@@ -1,4 +1,4 @@
-module.exports = function(router,connection,crypto,passport,async,emlTransporter){
+module.exports = function(router,connection,crypto,passport,async,emlTransporter){ // multer
 
 	// setup variables
 	var validModels = 	require('./v1/config/validModels.js');
@@ -30,6 +30,22 @@ module.exports = function(router,connection,crypto,passport,async,emlTransporter
 			next();
 		}
 	});
+
+// ?????? USE THIS ???????
+/*	router.use(multer(
+		{ dest: './uploadimage/',
+			rename: function (fieldname, filename) {
+				return filename+Date.now();
+			},
+			onFileUploadStart: function (file) {
+				console.log(file.originalname + ' is starting ...')
+			},
+			onFileUploadComplete: function (file) {
+				console.log(file.fieldname + ' uploaded to  ' + file.path)
+				done=true;
+			}
+		} 
+	)); */
 
 	router.param('model',function(req,res,next,model){
         // CHECK MODEL IS VALID
