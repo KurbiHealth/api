@@ -164,6 +164,9 @@ module.exports = function(router,connection,passport,validModels,async,joins){
                 }
 
                 // get form fields with: req.body.name ("name" is what the field is named)
+                // add the user id to the fields, to be saved in db
+                req.body.user_id = userId;
+
                 fieldArr = new Object;
                 for(i in req.body){
                     // don't allow passing data to protected fields: id, created
@@ -174,12 +177,6 @@ module.exports = function(router,connection,passport,validModels,async,joins){
 
                 // PRIVATE vs PRIVATEJOIN
                 if(validModels[tableName] == 'private'){
-                    // check to make sure that inserted field has 'user_id' and user_id value is current
-                    if(!('user_id' in req.body)){
-                        res.status(500).send('user id not set');
-                    }else{
-                        req.body.user_id = userId;
-                    }
                     // add a new record
                     connection.query('INSERT INTO ' + tableName + ' SET ?', fieldArr, function(err, result) {
                         if(err){

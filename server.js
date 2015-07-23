@@ -39,7 +39,6 @@ kurbiapi.on('uncaughtException', function (req, res, route, err) {
 // CONFIGURATION
 // ====================
 var connection 	= require('./config/mysql.js')(mysql,ENV);
-console.log(connection);
 require('./config/passport.js')(passport,TokenStrategy,connection);
 var emlTransporter = require('./config/nodemailer.js')(nodemailer,smtpTransport);
 
