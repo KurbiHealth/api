@@ -71,7 +71,7 @@ module.exports = function(router,connection,passport,validModels,async,joins){
                     constraint = new Array;
                     query = new Array;
                     where = new Array;
-
+                    
                     if(req.body.field != null){
                         // make sure the array of fields is an array or object, if there's only one field it comes through as a string
                         if(typeof req.body.field === 'object'){
@@ -151,20 +151,27 @@ module.exports = function(router,connection,passport,validModels,async,joins){
                     }
                     // add where
                     counter = 0;
-                    for(i in where){
-                        counter++;
-                        if(counter == 1){
-                            sql += ' WHERE ' + where[i];
-                        }else{
-                            sql += ' AND ' + where[i];
+                    if(where.length > 0){
+                        for(i in where){
+                            counter++;
+                            if(counter == 1){
+                                sql += ' WHERE ' + where[i];
+                            }else{
+                                sql += ' AND ' + where[i];
+                            }
                         }
+                        // add another 'AND' for the next step
+                        sql += ' AND ';
+                    }else{
+                        // add a 'WHERE' for the next step
+                        sql += ' WHERE ';
                     }
 
                     // need to add a final WHERE to protect private data
                     if(typeof validModels[modelName] === 'object'){
-                        sql += ' AND ' + validModels[modelName].join + '.user_id=' + userId;
+                        sql += validModels[modelName].join + '.user_id=' + userId;
                     }else if(validModels[modelName] == 'private'){
-                        sql += ' AND ' + modelName + '.user_id=' + userId;
+                        sql += modelName + '.user_id=' + userId;
                     }
 
                     callback(null,sql);
