@@ -126,7 +126,11 @@ module.exports = function(router,connection,passport,validModels,async,joins){
                             // add query value to where statement, wrap with quotes if not a number
                             if(isNaN(query[i])){
                                 // wrap with quotes
-                                where[i] += '\'' + query[i] + '\'';
+                                if(constraint[i] == 'has'){
+                                    where[i] += '\'%' + query[i] + '%\'';
+                                }else{
+                                    where[i] += '\'' + query[i] + '\'';
+                                }
                             }else{
                                 where[i] += query[i];
                             }
@@ -217,12 +221,14 @@ module.exports = function(router,connection,passport,validModels,async,joins){
 
                 // DO DATABASE CALL
                 function(sqlString,callback){
+console.log(sqlString);
                     options = {sql: sqlString, nestTables: true};
                     connection.query(options, function(err, rows) {
                         if(err){
                             returnObj = {query: sqlString, dberr: err}
                             callback(returnObj,null);
                         }else{
+console.log(rows);
                             callback(null,rows);
                         }
                     });
