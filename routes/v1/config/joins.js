@@ -82,7 +82,7 @@ var joins = {
 		{
 			'users': 'users.id=goals.user_id',
 			'goal_activities': 'goals.goal_activity_id=goal_activities.id',
-			'goals_actions': 'goals.id=goals_actions.goals_id',
+			'goals_actions': 'goals.id=goals_actions.goal_id',
 			'goals_journal_entry': 'goals.id=goals_journal_entry.goal_id',
 			'goals_supporters': 'goals.id=goals_supporters.goal_id'
 		}

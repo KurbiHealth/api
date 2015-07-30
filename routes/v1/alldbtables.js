@@ -203,6 +203,9 @@ module.exports = function(router,connection,passport,validModels,async,joins){
                     joinStr = ' JOIN ' + tableParent  + ' ON (' + joins[tableChild][tableParent] + ') ';
                     stop = false;
 
+                    // the loop here goes through the chain of parent tables until it finds a table labeled as 'private', which means
+                    // the table has a direct connection to the user table; then the loop checks that there is a parent record for the user, 
+                    // and if there is, the insert is carried out
                     while(stop == false){
                         if(validModels[tableParent] == 'private'){
                             // check whether there is a record with the right user_id value in it
@@ -231,8 +234,8 @@ module.exports = function(router,connection,passport,validModels,async,joins){
                             tableParent = validModels[tableParent].join;
                             joinStr += ' JOIN ' + tableParent  + ' ON (' + joins[tableChild][tableParent] + ') ';
                         }
-                    }
-                }                
+                    } // end while()
+                } // end of else{} (for private joins)              
             }
         )
     

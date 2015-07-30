@@ -7,8 +7,7 @@ module.exports = function(mysql,ENV){
 		  host: 			'10.132.28.129',
 		  user: 			'api1user',
 		  password : 		'XItU39tWhl8D',
-		  database: 		'kurbiapi',
-		  timezone: 		'-600'
+		  database: 		'kurbiapi'
 		});
 
 	}else if(ENV == 'dev'){
@@ -19,9 +18,7 @@ module.exports = function(mysql,ENV){
 		  password : 	'root',
 		  database: 	'kurbitestapi',
 		  port: 		8889,
-		  socketPath: 	'/Applications/MAMP/tmp/mysql/mysql.sock',
-		  datestring: 	true,
-		  timezone: 	'cst'
+		  socketPath: 	'/Applications/MAMP/tmp/mysql/mysql.sock'
 		});
 
 	}else if(ENV == 'test'){
@@ -30,8 +27,7 @@ module.exports = function(mysql,ENV){
 		  host: 			'10.132.28.129',
 		  user: 			'api1user',
 		  password : 		'XItU39tWhl8D',
-		  database: 		'kurbitestapi',
-		  timezone: 		'600'
+		  database: 		'kurbitestapi'
 		});
 
 	}else{
@@ -41,8 +37,7 @@ module.exports = function(mysql,ENV){
 		  host: 			'10.132.28.129',
 		  user: 			'api1user',
 		  password : 		'XItU39tWhl8D',
-		  database: 		'kurbiapi',
-		  timezone: 		'-600'
+		  database: 		'kurbiapi'
 		});
 
 	}
