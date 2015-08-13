@@ -9,14 +9,14 @@ router.route('/landingpgsignup')
 			// check params, and check to see if account already exists
 			function(callback){
 				email = req.body.email;
-				firstname = req.body.firstname;
-				lastname = req.body.lastname;
-				field = req.body.field;
+				//firstname = req.body.firstname;
+				//lastname = req.body.lastname;
+				//field = req.body.field;
 				if(email == ''){
 					res.status(500).send('credentials not received');
 				}
 
-				queryString = 'INSERT INTO signups (firstname,lastname,email,field) VALUES (\''+firstname+'\',\''+lastname+'\',\''+email+'\',\''+field+'\')';
+				queryString = 'INSERT INTO signups (email) VALUES (\''+email+'\')';
 				connection.query(queryString,function(err,result){
 					if(err){
 						callback(err,null);
