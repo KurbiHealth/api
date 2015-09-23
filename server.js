@@ -50,7 +50,9 @@ kurbiapi.use(passport.initialize());
 
 
 // ROUTES SETUP
-// Doing basic roles-based content filtering here, as well as doing basic versioning; api_v1 is technically a user's access to data, not an app's access to data
+// Doing basic roles-based content filtering here, as well as doing 
+// basic versioning; api_v1 is technically a user's access to data, 
+// not an app's access to data
 // ====================
 kurbiapi.get('/',function(req,res){
 	res.status(200).send('Welcome to the Kurbi ' + ENV + ' API');
@@ -65,7 +67,8 @@ require('./routes/devroutes.js')(devapi,connection,passport,async);
 
 // ROUTES REGISTERED
 // ====================
-// all of the v1 routes will be prefixed with /api (add another registration for each version)
+// all of the v1 routes will be prefixed with /api (add another 
+// registration for each version)
 kurbiapi.use('/v1', api_v1);
 // for using dev functionality
 kurbiapi.use('/dev/',devapi);
