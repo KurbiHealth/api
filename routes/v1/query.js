@@ -143,7 +143,9 @@ module.exports = function(router,connection,passport,validModels,async,joins){
                 
                 // CREATE CORE SQL STATEMENT
                 function(modelName,userFilter,tableNamesArr,multiTable,where,callback){
+                    
                     sql = 'SELECT * FROM ' + modelName;
+                      
                     if(multiTable){
                         for(i in tableNamesArr){
                             if(i == 0){
@@ -153,6 +155,7 @@ module.exports = function(router,connection,passport,validModels,async,joins){
                             }
                         }
                     }
+                    
                     // add where
                     counter = 0;
                     if(where.length > 0){
@@ -164,18 +167,20 @@ module.exports = function(router,connection,passport,validModels,async,joins){
                                 sql += ' AND ' + where[i];
                             }
                         }
-                        // add another 'AND' for the next step
-                        sql += ' AND ';
-                    }else{
-                        // add a 'WHERE' for the next step
-                        sql += ' WHERE ';
                     }
 
+                    // if the query is for public data, then this section is not 
+                    // needed
                     // need to add a final WHERE to protect private data
+                    if(counter == 0){
+                        var nextText = ' WHERE ';
+                    }else{
+                        var nextText = ' AND ';
+                    }
                     if(typeof validModels[modelName] === 'object'){
-                        sql += validModels[modelName].join + '.user_id=' + userId;
+                        sql += nextText + validModels[modelName].join + '.user_id=' + userId;
                     }else if(validModels[modelName] == 'private'){
-                        sql += modelName + '.user_id=' + userId;
+                        sql += nextText + modelName + '.user_id=' + userId;
                     }
 
                     callback(null,sql);

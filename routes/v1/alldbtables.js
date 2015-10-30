@@ -163,10 +163,6 @@ module.exports = function(router,connection,passport,validModels,async,joins){
                     res.status(500).send('cannot insert into this table');
                 }
 
-                // get form fields with: req.body.name ("name" is what the field is named)
-                // add the user id to the fields, to be saved in db
-                req.body.user_id = userId;
-
                 fieldArr = new Object;
                 for(i in req.body){
                     // don't allow passing data to protected fields: id, created
@@ -174,10 +170,11 @@ module.exports = function(router,connection,passport,validModels,async,joins){
                         fieldArr[i] = req.body[i];
                     }
                 }
-
+console.log('line 173',fieldArr);
                 // PRIVATE vs PRIVATEJOIN
-                if(validModels[tableName] == 'private'){
+                if(validModels[tableName] == 'private'){console.log('adding rcd');
                     // add a new record
+                    fieldArr.user_id = userId; // NOTE: userId comes from req.user.id, which is set in login function, and therefore a safe source for the user id value
                     connection.query('INSERT INTO ' + tableName + ' SET ?', fieldArr, function(err, result) {
                         if(err){
                             returnObj = {query: queryString, dberr: err}
@@ -217,15 +214,17 @@ module.exports = function(router,connection,passport,validModels,async,joins){
                                     res.status(500).send('relationship to a table with a user id not found');
                                 }else{
                                     // add a new record
-                                    connection.query('INSERT INTO ' + tableName + ' SET ?', fieldArr, function(err, result) {
+                                    queryString = 'INSERT INTO ' + tableName + ' SET ?';
+                                    var query = connection.query(queryString, fieldArr, function(err, result) {
                                         if(err){
-                                            returnObj = {query: queryString, dberr: err}
+                                            returnObj = {query: queryString, dberr: err, fields: fieldArr}
                                             res.status(500).send(returnObj);
                                         }else{
                                             // return id of inserted record (or return full record?)
                                             res.status(200).send({insertId: result.insertId});
                                         }
                                     });
+                                    console.log(query.sql);
                                 }
                             });
                             stop = true;

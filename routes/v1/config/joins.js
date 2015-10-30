@@ -207,7 +207,7 @@ var joins = {
 	,
 	'symptom_categories': 
 		{
-			'symptoms': 'symptom_categories.id=symptoms.category_id'
+			'symptoms': 'symptom_categories.id=symptoms.symptom_category_id'
 		}
 	,
 	'users': 
