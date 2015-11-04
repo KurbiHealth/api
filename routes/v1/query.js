@@ -98,7 +98,8 @@ module.exports = function(router,connection,passport,validModels,async,joins){
 
                             // get query value
                             if(request[2] == ''){
-                                callback('no query value found',null);
+                                //callback('no query value found',null);
+                                query[i] = '';
                             }else{
                                 // remove any extra characters from query string (is url encoded)
                                 query[i] = decodeURIComponent(request[2].replace(/\+/g, '%20'));
@@ -124,7 +125,7 @@ module.exports = function(router,connection,passport,validModels,async,joins){
                             else
                                 callback('error creating where values',null);
                             // add query value to where statement, wrap with quotes if not a number
-                            if(isNaN(query[i])){
+                            if(isNaN(query[i]) || query[i] === ''){
                                 // wrap with quotes
                                 if(constraint[i] == 'has'){
                                     where[i] += '\'%' + query[i] + '%\'';
