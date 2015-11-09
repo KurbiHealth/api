@@ -24,15 +24,6 @@ var validModels = {
 		'type': 'privateJoin',
 		'join': 'exercises_users'
 	},
-	'goals_actions': {
-		'type': 'privateJoin',
-		'join': 'goals'
-	},
-	// NOTE: goals_actions_done is currently the only table 2 tables away from "users" table
-	'goals_actions_done': {
-		'type': 'privateJoin',
-		'join': 'goals_actions'
-	},
 	'goals_journal_entry': {
 		'type': 'privateJoin',
 		'join': 'goals'
@@ -40,6 +31,10 @@ var validModels = {
 	'goals_supporters': {
 		'type': 'privateJoin',
 		'join': 'goals'
+	},
+	'images': {
+		'type': 'privateJoin',
+		'join': 'journal_entry_components'
 	},
 	'journal_entry_components': {
 		'type': 'privateJoin',
@@ -52,6 +47,23 @@ var validModels = {
 	'othertreatments': {
 		'type': 'privateJoin',
 		'join': 'othertreatments_users'
+	},
+	'paths': {
+		'type': 'privateJoin',
+		'join': 'goals'
+	},
+	'path_steps': {
+		'type': 'privateJoin',
+		'join': 'paths'
+	},
+	// NOTE: goals_actions_done is currently the only table 2 tables away from "users" table
+	'path_steps_done': {
+		'type': 'privateJoin',
+		'join': 'path_steps'
+	},
+	'path_toolkit_items': {
+		'type': 'privateJoin',
+		'join': 'paths'
 	},
 	'search_queries': {
 		'type': 'privateJoin',
@@ -74,6 +86,7 @@ var validModels = {
 	'message_recipients': 'private',				// id (recipient_user_id)
 	'othertreatments_users': 'private',				// id (is m2m)
 	'othertreatments_taken': 'private',				// id (is m2m)
+	//'paths': 'private',
 	'searches': 'private',							// id (is m2m)
 	'user_defined_symptoms': 'private',				// id (is m2o)
 	'user_role_employees': 'private',				// id (is o2o)

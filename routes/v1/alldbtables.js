@@ -170,9 +170,11 @@ module.exports = function(router,connection,passport,validModels,async,joins){
                         fieldArr[i] = req.body[i];
                     }
                 }
-console.log('line 173',fieldArr);
+
                 // PRIVATE vs PRIVATEJOIN
-                if(validModels[tableName] == 'private'){console.log('adding rcd');
+                if(validModels[tableName] == 'private'){
+                    console.log('adding rcd');
+
                     // add a new record
                     fieldArr.user_id = userId; // NOTE: userId comes from req.user.id, which is set in login function, and therefore a safe source for the user id value
                     connection.query('INSERT INTO ' + tableName + ' SET ?', fieldArr, function(err, result) {
@@ -184,7 +186,8 @@ console.log('line 173',fieldArr);
                             res.status(200).send({insertId: result.insertId});
                         }
                     });
-                }else{ // validModel should == 'privateJoin'
+                }else{ 
+                    // validModel should == 'privateJoin'
                     // if it's a privateJoin, then I should look up the chain to see if there's a user_id
                     // UNLESS, the parentTable is defined in the post form, in which case there should be 
                     // a user_id in that parentTable,
@@ -197,21 +200,169 @@ console.log('line 173',fieldArr);
 
                     // the point is to check that the record in the parentTable is linked to a user rcd, or 
                     // to a table with user_id with a connected record (that already exists)
-                    joinStr = ' JOIN ' + tableParent  + ' ON (' + joins[tableChild][tableParent] + ') ';
+                    //joinStr = ' JOIN ' + tableParent  + ' ON (' + joins[tableChild][tableParent] + ') ';
+                    joinStr = '';
                     stop = false;
+              
+                    // check to see if there is a connection to a parent record
+                    // NOTE: need to see if there is a "[tableParent]_id" field in the fieldsArr and that there is a valid relationship to a record
+                    var joinField = tableParent+'.id';
+                    if(tableParent == 'addresses' ){
+                        var fieldKey = 'address_id';
+                    }else if(tableParent == 'exercises_done'){
+                        var fieldKey = 'exercises_done_id';
+                    }else if(tableParent == 'goals_journal_entry'){
+                        var fieldKey = 'goals_journal_entry';
+                    }else if(tableParent == 'goal_activities'){
+                        var fieldKey = 'goal_activity_id';
+                    }else if(tableParent == 'health_care_org'){
+                        var fieldKey = 'health_care_org_id';
+                    }else if(tableParent == 'journal_entries'){
+                        var fieldKey = 'journal_entry_id';
+                    }else if(tableParent == 'medications_taken'){
+                        var fieldKey = 'medications_taken_id';
+                    }else if(tableParent == 'othertreatments_taken'){
+                        var fieldKey = 'othertreatments_taken_id';
+                    }else if(tableParent == 'path_steps_done'){
+                        var fieldKey = 'path_steps_done_id';
+                    }else if(tableParent == 'searches'){
+                        var fieldKey = 'search_id';
+                    }else if(tableParent == 'search_queries'){
+                        var fieldKey = 'search_query_id';
+                    }else if(tableParent == 'symptom_categories'){
+                        var fieldKey = 'symptom_category_id';
+                    }else if(tableParent == 'user_role_healthcareprof'){
+                        var fieldKey = 'user_role_healthcareprof_id';
+                    }else if(tableParent == 'user_symptom_searches'){
+                        var fieldKey = 'user_symptom_search_id';
+                    }else{
+                        var fieldKey = tableParent.substring(0,tableParent.length - 1) + '_id';
+                    }
+                    queryString = 'SELECT * FROM ' + tableParent + ' WHERE ' + joinField + '=' + fieldArr[fieldKey];
+                    connection.query(queryString,function(err,rows){
+                        if(err){
+                            res.status(500).send({query:queryString,error:err, variables: {'tableName': tableName, 'tableParent': tableParent, 'tableChild': tableChild, 'joinStr': joinStr, 'userId': userId}});
+                        }else if(rows.length == 0){
+                            res.status(500).send({'error': 'relationship to a table with a user id not found','query':queryString});
+                        }else{
+                            var parentValue = rows[0].id;
+                            // check that the parent record has a connection to user table
+                            if(validModels[tableParent] == 'private'){
+                                if(rows[0].user_id==userId){
+                                    // all is good, go ahead and do the insert
+                                    queryString = 'INSERT INTO ' + tableName + ' SET ?';
+                                    var query = connection.query(queryString, fieldArr, function(err, result) {
+                                        if(err){
+                                            returnObj = {query: queryString, dberr: err, fields: fieldArr}
+                                            res.status(500).send(returnObj);
+                                        }else{
+console.log('229');
+                                            // return id of inserted record (or return full record?)
+                                            res.status(200).send({insertId: result.insertId});
+                                        }
+                                    });
+                                    console.log(query.sql);
+                                }else{
+console.log('236');
+                                    // if the parent record doesn't belong to the logged in user, then error out the api call
+                                    res.status(500).send({error: 'the parent record does not belong to the logged in user, line 220',query:queryString});
+                                }
+                            }else{
+                                // Need to loop through parent records until there is one that has a "user_id" with a rcd belonging to logged in user
+                                tableChild = tableParent;
+                                tableParent = validModels[tableParent].join;
+                                //joinStr += ' JOIN ' + tableParent  + ' ON (' + joins[tableChild][tableParent] + ') ';
+                                while(stop == false){
+                                    if(validModels[tableParent] == 'private'){
+                                        // check whether there is a record with the right user_id value in it
+                                        // the question is: do I create a relationship, or search in the parent table
+                                        // for a relationship? 
+                                        var joinField = tableParent+'.id';
+                                        if(tableParent == 'addresses' ){
+                                            var fieldKey = 'address_id';
+                                        }else if(tableParent == 'exercises_done'){
+                                            var fieldKey = 'exercises_done_id';
+                                        }else if(tableParent == 'goals_journal_entry'){
+                                            var fieldKey = 'goals_journal_entry';
+                                        }else if(tableParent == 'goal_activities'){
+                                            var fieldKey = 'goal_activity_id';
+                                        }else if(tableParent == 'health_care_org'){
+                                            var fieldKey = 'health_care_org_id';
+                                        }else if(tableParent == 'journal_entries'){
+                                            var fieldKey = 'journal_entry_id';
+                                        }else if(tableParent == 'medications_taken'){
+                                            var fieldKey = 'medications_taken_id';
+                                        }else if(tableParent == 'othertreatments_taken'){
+                                            var fieldKey = 'othertreatments_taken_id';
+                                        }else if(tableParent == 'path_steps_done'){
+                                            var fieldKey = 'path_steps_done_id';
+                                        }else if(tableParent == 'searches'){
+                                            var fieldKey = 'search_id';
+                                        }else if(tableParent == 'search_queries'){
+                                            var fieldKey = 'search_query_id';
+                                        }else if(tableParent == 'symptom_categories'){
+                                            var fieldKey = 'symptom_category_id';
+                                        }else if(tableParent == 'user_role_healthcareprof'){
+                                            var fieldKey = 'user_role_healthcareprof_id';
+                                        }else if(tableParent == 'user_symptom_searches'){
+                                            var fieldKey = 'user_symptom_search_id';
+                                        }else{
+                                            var fieldKey = tableParent.substring(0,tableParent.length - 1) + '_id';
+                                        }
+                                        queryString = 'SELECT * FROM ' + tableParent + ' WHERE ' + joinField + '=' + parentValue;
+console.log(fieldArr);console.log(fieldKey);console.log(fieldArr[fieldKey]);
+//joinStr += ' JOIN ' + tableParent  + ' ON (' + joins[tableChild][tableParent] + ') ';
+//queryString = 'SELECT * FROM ' + tableParent + joinStr + ' WHERE ' + tableParent + '.user_id=' + userId;
+
+                                        connection.query(queryString,function(err,rows){
+                                            if(err){
+                                                res.status(500).send({query:queryString,error:err, variables: {'tableName': tableName, 'tableParent': tableParent, 'tableChild': tableChild, 'joinStr': joinStr, 'userId': userId}});
+                                            }else if(rows.length == 0){
+                                                res.status(500).send({'error': 'relationship to a table with a user id not found','query':queryString});
+                                            }else{
+                                                var parentValue = rows[0].id;
+                                                // add a new record
+                                                queryString = 'INSERT INTO ' + tableName + ' SET ?';
+                                                var query = connection.query(queryString, fieldArr, function(err, result) {
+                                                    if(err){
+                                                        returnObj = {query: queryString, dberr: err, fields: fieldArr}
+                                                        res.status(500).send(returnObj);
+                                                    }else{
+                                                        // return id of inserted record (or return full record?)
+                                                        res.status(200).send({insertId: result.insertId});
+                                                    }
+                                                });
+                                                console.log(query.sql);
+                                            }
+                                        });
+                                        stop = true;
+                                    }else{
+                                        tableChild = tableParent;
+                                        tableParent = validModels[tableParent].join;
+                                        //joinStr += ' JOIN ' + tableParent  + ' ON (' + joins[tableChild][tableParent] + ') ';
+                                    }
+                                } // end while()
+                            }
+                        }
+                    });
 
                     // the loop here goes through the chain of parent tables until it finds a table labeled as 'private', which means
                     // the table has a direct connection to the user table; then the loop checks that there is a parent record for the user, 
                     // and if there is, the insert is carried out
-                    while(stop == false){
+
+/*                    while(stop == false){
                         if(validModels[tableParent] == 'private'){
+// check that the parent record has a connection to user table
+
+// if the parent record doesn't have a connection to the user table, check if there is a parent table up the line that has a connection
+
                             // check whether there is a record with the right user_id value in it
-                            queryString = 'SELECT * FROM ' + tableName + joinStr + ' WHERE ' + tableParent + '.user_id=' + userId;
+                            queryString = 'SELECT * FROM ' + tableParent + joinStr + ' WHERE ' + tableParent + '.user_id=' + userId;
                             connection.query(queryString,function(err,rows){
                                 if(err){
                                     res.status(500).send({query:queryString,error:err, variables: {'tableName': tableName, 'tableParent': tableParent, 'tableChild': tableChild, 'joinStr': joinStr, 'userId': userId}});
                                 }else if(rows.length == 0){
-                                    res.status(500).send('relationship to a table with a user id not found');
+                                    res.status(500).send({'error': 'relationship to a table with a user id not found','query':queryString});
                                 }else{
                                     // add a new record
                                     queryString = 'INSERT INTO ' + tableName + ' SET ?';
@@ -234,6 +385,7 @@ console.log('line 173',fieldArr);
                             joinStr += ' JOIN ' + tableParent  + ' ON (' + joins[tableChild][tableParent] + ') ';
                         }
                     } // end while()
+*/
                 } // end of else{} (for private joins)              
             }
         )

@@ -82,21 +82,11 @@ var joins = {
 		{
 			'users': 'users.id=goals.user_id',
 			'goal_activities': 'goals.goal_activity_id=goal_activities.id',
-			'goals_actions': 'goals.id=goals_actions.goal_id',
 			'goals_journal_entry': 'goals.id=goals_journal_entry.goal_id',
-			'goals_supporters': 'goals.id=goals_supporters.goal_id'
+			'goals_supporters': 'goals.id=goals_supporters.goal_id',
+			'paths': 'goals.id=paths.goal_id'
 		}
 	, 
-	'goals_actions':
-		{
-			'goals': 'goals.id=goals_actions.goal_id'
-		}
-	,
-	'goals_actions_done':
-		{
-			'goals_actions': 'goals_actions_done.goals_action_id=goals_actions.id'
-		}
-	,
 	'goals_journal_entry':
 		{
 			'goals': 'goals.id=goals_journal_entry.goal_id',
@@ -120,6 +110,11 @@ var joins = {
 			'care_team_orgs': 'health_care_org.id=care_team_orgs.health_care_org_id'
 		}
 	,
+	'images':
+		{
+			'journal_entry_components': 'images.id=journal_entry_components.image_id'
+		}
+	,
 	'journal_entries':
 		{
 			'journal_entry_components': 'journal_entries.id=journal_entry_components.journal_entry_id',
@@ -130,7 +125,8 @@ var joins = {
 		{
 			'journal_entries': 'journal_entry_components.journal_entry_id=journal_entries.id',
 			'notes': 'notes.id=journal_entry_components.note_id',
-			'symptoms': 'symptoms.id=journal_entry_components.symptom_id'
+			'symptoms': 'symptoms.id=journal_entry_components.symptom_id',
+			'images': 'images.id=journal_entry_components.image_id'
 		}
 	,
 	'medications':
@@ -186,6 +182,29 @@ var joins = {
 			'users': 'users.id=othertreatments_done.user_id'
 		}
 	,
+	'paths':
+		{
+			'goals': 'goals.id=paths.goal_id',
+			'path_steps': 'paths.id=path_steps.path_id',
+			'path_toolkit_items': 'paths.id=path_toolkit_items.path_id'
+			//'users': 'paths.user_id=users.id'
+		}
+	,
+	'path_steps':
+		{
+			'paths': 'paths.id=path_steps.path_id'
+		}
+	,
+	'path_steps_done':
+		{
+			'path_steps': 'path_steps.id=path_steps_done.path_steps_id'
+		}
+	,
+	'path_toolkit_items':
+		{
+			'paths': 'path.id=path_toolkit_items.path_id'
+		}
+	,
 	'searches':
 		{
 			'users': 'users.id=searches.user_id',
@@ -236,7 +255,8 @@ var joins = {
 			'user_role_healthcareprof': 'users.id=user_role_healthcareprof.user_id',
 			'user_role_patients': 'users.id=user_role_patients.user_id',
 			'user_role_supporters': 'users.id=user_role_supporters.user_id',
-			'user_symptom_searches': 'users.id=user_symptom_searches.user_id'
+			'user_symptom_searches': 'users.id=user_symptom_searches.user_id',
+			'paths': 'users.id=paths.user_id'
 		}
 	,
 	'user_defined_symptoms': 
