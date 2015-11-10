@@ -14,6 +14,7 @@ var async 			= require('async');
 var nodemailer 		= require('nodemailer'),
 	smtpTransport 	= require('nodemailer-smtp-transport');
 //var multer			= require('multer');
+var Q				= require('q');
 
 
 // GET VALUES PASSED VIA COMMAND LINE
@@ -59,7 +60,7 @@ kurbiapi.get('/',function(req,res){
 });
 
 var api_v1 = express.Router();
-require('./routes/v1routes.js')(api_v1,connection,crypto,passport,async,emlTransporter); //multer
+require('./routes/v1routes.js')(api_v1,connection,crypto,passport,async,emlTransporter,Q); //multer
 
 var devapi = express.Router();
 require('./routes/devroutes.js')(devapi,connection,passport,async);

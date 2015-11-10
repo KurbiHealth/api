@@ -1,8 +1,9 @@
-module.exports = function(router,connection,crypto,passport,async,emlTransporter){ // multer
+module.exports = function(router,connection,crypto,passport,async,emlTransporter,Q){ // multer
 
 	// setup variables
 	var validModels = 	require('./v1/config/validModels.js');
 	var joins = 		require('./v1/config/joins.js');
+	var security = 		require('./v1/security/security.js')(router,connection,validModels,joins,Q);
 
 	// middleware to use for all requests
 	router.use(function(req,res,next){
@@ -92,7 +93,7 @@ module.exports = function(router,connection,crypto,passport,async,emlTransporter
 
 	require('./v1/loginsignup.js')(router,connection,crypto,async);
 	require('./v1/query.js')(router,connection,passport,validModels,async,joins);
-	require('./v1/alldbtables.js')(router,connection,passport,validModels,async,joins);
+	require('./v1/alldbtables.js')(router,connection,passport,validModels,async,joins,security,Q);
 	require('./v1/customroutes.js')(router,connection,passport,validModels,async,joins,sendMessage);
 	require('./v1/messages.js')(router,connection,passport,validModels,async,joins,sendMessage);
 
