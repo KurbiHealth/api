@@ -143,9 +143,20 @@ module.exports = function(router,connection,passport,validModels,async,joins){
                 }, 
                 
                 // CREATE CORE SQL STATEMENT
+                /* SELECT * , COUNT( DISTINCT journal_entry_components.symptom_id ) AS count
+                FROM journal_entries
+                JOIN journal_entry_components ON ( journal_entries.id = journal_entry_components.journal_entry_id ) 
+                JOIN symptoms ON ( symptoms.id = journal_entry_components.symptom_id ) 
+                WHERE journal_entries.user_id =5 */
                 function(modelName,userFilter,tableNamesArr,multiTable,where,callback){
                     
                     sql = 'SELECT * FROM ' + modelName;
+
+                    // CHECK FOR 'count' KEY
+                    /* count: fieldName */
+                    if(req.body.count != null){
+                        sql += ', COUNT( DISTINCT ' + req.body.count + ' ) AS count';
+                    }
                       
                     if(multiTable){
                         for(i in tableNamesArr){
@@ -221,15 +232,6 @@ module.exports = function(router,connection,passport,validModels,async,joins){
                 function(sql,callback){
                     if(req.body.limit != null){
                         sql += ' LIMIT ' + req.body.limit;
-                    }
-                    callback(null,sql); // go to next function
-                },
-
-                // CHECK FOR 'count' KEY
-                /* count: fieldName */
-                function(sql,callback){
-                    if(req.body.count != null){
-                        sql += ' COUNT ' + req.body.count;
                     }
                     callback(null,sql); // go to next function
                 },
