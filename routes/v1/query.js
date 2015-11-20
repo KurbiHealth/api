@@ -225,6 +225,15 @@ module.exports = function(router,connection,passport,validModels,async,joins){
                     callback(null,sql); // go to next function
                 },
 
+                // CHECK FOR 'count' KEY
+                /* count: fieldName */
+                function(sql,callback){
+                    if(req.body.count != null){
+                        sql += ' COUNT ' + req.body.count;
+                    }
+                    callback(null,sql); // go to next function
+                },
+
                 // DO DATABASE CALL
                 function(sqlString,callback){
 console.log(sqlString);
