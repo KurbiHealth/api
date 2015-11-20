@@ -294,7 +294,8 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
             }
         )
 
-        // WHAT INFO CAN A USER DELETE? nothing from a public table. their connection to an exercise, medication, care_team, etc, but not their core user record
+        // WHAT INFO CAN A USER DELETE? nothing from a public table. 
+        //their connection to an exercise, medication, care_team, etc, but not their core user record
         .delete(
             passport.authenticate(
                 'token',
