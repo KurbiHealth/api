@@ -309,22 +309,29 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
                     var promise = '';
                     tableParent = validModels[tableName].join;
 
-                    security.checkForOwnerRecursively(promise,userId,tableParent,fieldArr)
-                    .then(function(){
-                        // delete record
-                        queryString = 'DELETE FROM ' + tableName + ' WHERE ' + tableName + '.id=' + deleteId;
-                        connection.query(queryString, function(err, result) {
-                            if(err){
-                                returnObj = {query: queryString, dberr: err}
-                                res.status(500).send(returnObj);
-                            }else{
-                                // return id of inserted record (or return full record?)
-                                res.status(200).send('affected rows: ' + result.affectedRows);
-                            }
-                        });
-                    })
-                    .catch(function(error){
-                        res.status(500).send(error);
+                    queryString = 'SELECT * FROM ' + tableName + ' WHERE id=' + deleteId;
+                    connection.query(queryString,function(error,data){
+                        if(error){
+                            res.status(500).send('There is no record by that id');
+                        }else{
+                            security.checkForOwnerRecursively(promise,userId,tableParent,data[0])
+                            .then(function(){
+                                // delete record
+                                queryString = 'DELETE FROM ' + tableName + ' WHERE ' + tableName + '.id=' + deleteId;
+                                connection.query(queryString, function(err, result) {
+                                    if(err){
+                                        returnObj = {query: queryString, dberr: err}
+                                        res.status(500).send(returnObj);
+                                    }else{
+                                        // return id of inserted record (or return full record?)
+                                        res.status(200).send('affected rows: ' + result.affectedRows);
+                                    }
+                                });
+                            })
+                            .catch(function(error){
+                                res.status(500).send(error);
+                            });
+                        }
                     });
                 }
             }
