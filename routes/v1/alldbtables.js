@@ -290,7 +290,7 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
                 // get variables
                 tableName = req.params.model;
                 userId = req.user.id;
-                deleteId = req.body.deleteId;
+                deleteId = req.params[0];
 
                 // do not allow users via app to add to tables (with data used for lookups and dropdowns)
                 if(validModels[tableName] == 'public'){
@@ -310,6 +310,7 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
                     tableParent = validModels[tableName].join;
 
                     queryString = 'SELECT * FROM ' + tableName + ' WHERE id=' + deleteId;
+console.log(queryString);
                     connection.query(queryString,function(error,data){
                         if(error){
                             res.status(500).send('There is no record by that id');
