@@ -217,7 +217,7 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
                 {session: false}
             ),
             function(req, res) {
-                // get variables
+                // get variables, data: {fields: obj, updateId: id}
                 tableName = req.params.model;
                 userId = req.user.id;
                 updateId = req.body.updateId;
@@ -229,10 +229,10 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
 
                 // get form fields with: req.body.name ("name" is what the field is named)
                 fieldArr = new Object;
-                for(i in req.body){
+                for(i in req.body.fields){
                     // don't allow passing data to protected fields: id, created
                     if(i != 'id' && i != 'created' && i != 'parentTable' && i != 'parentId' && i != 'updateId'){
-                        fieldArr[i] = req.body[i];
+                        fieldArr[i] = req.body.fields[i];
                     }
                 }
 
@@ -252,23 +252,26 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
                     queryString = 'SELECT * FROM ' + tableName + ' WHERE id=' + updateId;
                     connection.query(queryString,function(error,data){
                         if(error){
-                            promise.reject(error);
+                            res.status(500).send(queryString + ', ' + error);
                         }else{
-                            security.checkForOwnerRecursively(promise,userId,tableParent,data)
+                            security.checkForOwnerRecursively(promise,userId,tableParent,data[0])
                             .then(function(){
                                 // update a record
-                                connection.query('UPDATE ' + tableName + ' SET ? WHERE ' + tableName + '.id=' + updateId, fieldArr, function(err, result) {
-                                    if(err){
-                                        returnObj = {query: queryString, dberr: err}
-                                        res.status(500).send(returnObj);
-                                    }else{
-                                        // return id of inserted record (or return full record?)
-                                        res.status(200).send('changed rows: ' + result.changedRows);
-                                    }
-                                });
+                                connection.query(
+                                    'UPDATE ' + tableName + ' SET ? WHERE ' + tableName + '.id=' + updateId, 
+                                    fieldArr, 
+                                    function(err, result) {
+                                        if(err){
+                                            returnObj = {query: queryString, dberr: err}
+                                            res.status(500).send(returnObj);
+                                        }else{
+                                            // return id of inserted record (or return full record?)
+                                            res.status(200).send('changed rows: ' + result.changedRows);
+                                        }
+                                    });
                             })
                             .catch(function(error){
-                                res.status(500).send(error);
+                                res.status(500).send('line 293' + error);
                             });
                         }
                     });

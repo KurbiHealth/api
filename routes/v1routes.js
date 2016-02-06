@@ -32,22 +32,6 @@ module.exports = function(router,connection,crypto,passport,async,emlTransporter
 		}
 	});
 
-// ?????? USE THIS ???????
-/*	router.use(multer(
-		{ dest: './uploadimage/',
-			rename: function (fieldname, filename) {
-				return filename+Date.now();
-			},
-			onFileUploadStart: function (file) {
-				console.log(file.originalname + ' is starting ...')
-			},
-			onFileUploadComplete: function (file) {
-				console.log(file.fieldname + ' uploaded to  ' + file.path)
-				done=true;
-			}
-		} 
-	)); */
-
 	router.param('model',function(req,res,next,model){
         // CHECK MODEL IS VALID
         // (validModels is a 1-dimensional array from /config/validModels.js)

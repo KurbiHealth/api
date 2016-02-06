@@ -45,10 +45,10 @@ module.exports = function(router,connection,validModels,joins,Q){
 
 		connection.query(queryString,function(error,data){
 			if(error){
-				promise.reject(error);
+				promise.reject(queryString + error);
 			}else if(data[0].length == 0){
 				// if length is 0, then there's no parent relationship, error out
-				promise.reject();
+				promise.reject('no parent relationship on line 51');
 			}else if(data[0].user_id==userId){
 				// then all is good, return success
 				promise.resolve();

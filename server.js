@@ -68,8 +68,7 @@ require('./routes/devroutes.js')(devapi,connection,passport,async);
 
 // ROUTES REGISTERED
 // ====================
-// all of the v1 routes will be prefixed with /api (add another 
-// registration for each version)
+// all of the v1 routes must be prefixed with /v1 in the request
 kurbiapi.use('/v1', api_v1);
 // for using dev functionality
 kurbiapi.use('/dev/',devapi);
