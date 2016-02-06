@@ -244,26 +244,33 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
                     }else{
                         req.body.user_id = userId;
                     }
-                }else{ // validModel should == 'privateJoin'
+                }else{
                     // PRIVATE RECORDS
                     var promise = '';
                     tableParent = validModels[tableName].join;
 
-                    security.checkForOwnerRecursively(promise,userId,tableParent,fieldArr)
-                    .then(function(){
-                        // update a record
-                        connection.query('UPDATE ' + tableName + ' SET ? WHERE ' + tableName + '.id=' + updateId, fieldArr, function(err, result) {
-                            if(err){
-                                returnObj = {query: queryString, dberr: err}
-                                res.status(500).send(returnObj);
-                            }else{
-                                // return id of inserted record (or return full record?)
-                                res.status(200).send('changed rows: ' + result.changedRows);
-                            }
-                        });
-                    })
-                    .catch(function(error){
-                        res.status(500).send(error);
+                    queryString = 'SELECT * FROM ' + tableName + ' WHERE id=' + updateId;
+                    connection.query(queryString,function(error,data){
+                        if(error){
+                            promise.reject(error);
+                        }else{
+                            security.checkForOwnerRecursively(promise,userId,tableParent,data)
+                            .then(function(){
+                                // update a record
+                                connection.query('UPDATE ' + tableName + ' SET ? WHERE ' + tableName + '.id=' + updateId, fieldArr, function(err, result) {
+                                    if(err){
+                                        returnObj = {query: queryString, dberr: err}
+                                        res.status(500).send(returnObj);
+                                    }else{
+                                        // return id of inserted record (or return full record?)
+                                        res.status(200).send('changed rows: ' + result.changedRows);
+                                    }
+                                });
+                            })
+                            .catch(function(error){
+                                res.status(500).send(error);
+                            });
+                        }
                     });
                 } 
             }
@@ -296,52 +303,26 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
                         req.body.user_id = userId;
                     }
                 }else{ // validModel should == 'privateJoin'
+                    var promise = '';
+                    tableParent = validModels[tableName].join;
 
-                    // if it's a privateJoin, then I should look up the chain to see if there's a user_id
-                    // UNLESS, the parentTable is defined in the post form, in which case there should be 
-                    // a user_id in that parentTable,
-                    tableChild = tableName;
-                    if('parentTable' in req.body){
-                        tableParent = req.body.parentTable;
-                    }else{
-                        tableParent = validModels[tableName].join;
-                    }
-
-                    // the point is to check that the record in the parentTable is linked to a user rcd, or 
-                    // to a table with user_id with a connected record (that already exists)
-                    joinStr = '';
-                    stop = false;
-
-                    while(stop == false){
-                        if(validModels[tableParent] == 'private'){
-                            // check whether there is a record with the right user_id value in it
-                            queryString = 'SELECT * FROM ' + tableChild + joinStr + ' WHERE ' + tableParent + '.user_id=' + userId;
-                            connection.query(queryString,function(err,rows){
-                                if(err){
-                                    res.status(500).send({query:queryString,error:err});
-                                }else if(rows.length == 0){
-                                    res.status(500).send('relationship to a table with a user id not found');
-                                }else{
-                                    // add a new record
-                                    queryString = 'DELETE FROM ' + tableName + ' WHERE ' + tableName + '.id=' + deleteId;
-                                    connection.query(queryString, function(err, result) {
-                                        if(err){
-                                            returnObj = {query: queryString, dberr: err}
-                                            res.status(500).send(returnObj);
-                                        }else{
-                                            // return id of inserted record (or return full record?)
-                                            res.status(200).send('affected rows: ' + result.affectedRows);
-                                        }
-                                    });
-                                }
-                            });
-                            stop = true;
-                        }else{
-                            tableChild = tableParent;
-                            tableParent = validModels[tableParent].join;
-                            joinStr += ' JOIN ' + tableParent  + ' ON (' + joins[tableChild][tableParent] + ') ';
-                        }
-                    }
+                    security.checkForOwnerRecursively(promise,userId,tableParent,fieldArr)
+                    .then(function(){
+                        // delete record
+                        queryString = 'DELETE FROM ' + tableName + ' WHERE ' + tableName + '.id=' + deleteId;
+                        connection.query(queryString, function(err, result) {
+                            if(err){
+                                returnObj = {query: queryString, dberr: err}
+                                res.status(500).send(returnObj);
+                            }else{
+                                // return id of inserted record (or return full record?)
+                                res.status(200).send('affected rows: ' + result.affectedRows);
+                            }
+                        });
+                    })
+                    .catch(function(error){
+                        res.status(500).send(error);
+                    });
                 }
             }
         );
