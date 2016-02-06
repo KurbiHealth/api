@@ -115,7 +115,7 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
                         // need to check that the requested record belongs to the 
                         // authenticated (current) user, by checking that the join
                         // table has the right value in join_table.user_id
-                        queryString += ' JOIN ' + joinTable + ' ON (' + joinStrong + ') WHERE ' + joinTable + '.user_id=' + userId + ' AND';
+                        queryString += ' JOIN ' + joinTable + ' ON (' + joinString + ') WHERE ' + joinTable + '.user_id=' + userId + ' AND';
                     }
                     queryString += ' WHERE ' + modelName + '.id=' + id;
                     options = {sql: queryString, nestTables: true};
@@ -190,7 +190,7 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
                 var promise = '';
                 tableParent = validModels[tableName].join;
 
-                security.checkForOwnerRecursively(promise,userId,tableParent,fieldArr)
+                security.checkForOwnerRecursively(promise,userId,tableName,tableParent,fieldArr)
                 .then(function(){
                     // add a new record
                     connection.query('INSERT INTO ' + tableName + ' SET ?', fieldArr, function(err, result) {
@@ -254,7 +254,7 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
                         if(error){
                             res.status(500).send(queryString + ', ' + error);
                         }else{
-                            security.checkForOwnerRecursively(promise,userId,tableParent,data[0])
+                            security.checkForOwnerRecursively(promise,userId,tableName,tableParent,data[0])
                             .then(function(){
                                 // update a record
                                 connection.query(
@@ -315,7 +315,7 @@ console.log(queryString);
                         if(error){
                             res.status(500).send('There is no record by that id');
                         }else{
-                            security.checkForOwnerRecursively(promise,userId,tableParent,data[0])
+                            security.checkForOwnerRecursively(promise,userId,tableName,tableParent,data[0])
                             .then(function(){
                                 // delete record
                                 queryString = 'DELETE FROM ' + tableName + ' WHERE ' + tableName + '.id=' + deleteId;

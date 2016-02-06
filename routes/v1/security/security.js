@@ -1,6 +1,6 @@
 module.exports = function(router,connection,validModels,joins,Q){
 
-	var checkForOwnerRecursively = function(promise,userId,tableParent,fieldArr){
+	var checkForOwnerRecursively = function(promise,userId,tableName,tableParent,fieldArr){
 
 		if(promise == ''){
 			var returnPromise = true;
@@ -39,6 +39,12 @@ module.exports = function(router,connection,validModels,joins,Q){
 		    var fieldKey = 'user_symptom_search_id';
 		}else{
 		    var fieldKey = tableParent.substring(0,tableParent.length - 1) + '_id';
+		}
+
+		// the notes & images tables do not have parent id's, so do not fall into the normal flow of relationships
+		// that allows for this recursive security policy to work. This needs work -Matt Eckman 2/6/2016
+		if(tableName == 'notes' || tableName == 'images'){
+			promise.resolve();
 		}
 
 		queryString = 'SELECT * FROM ' + tableParent + ' WHERE id=' + fieldArr[fieldKey];
