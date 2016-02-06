@@ -155,7 +155,16 @@ module.exports = function(router,connection,passport,validModels,async,joins){
                     // CHECK FOR 'count' KEY
                     /* count: fieldName */
                     if(req.body.count != null){
-                        sql += ', COUNT( DISTINCT ' + req.body.count + ' ) AS count';
+                        sql += ', COUNT( ';
+
+                        if(req.body.count.indexOf('|') == -1){
+                            sql += req.body.count;
+                        }else{
+                            temp = req.body.orderBy.split('|');
+                            sql += 'DISTINCT ' + temp[0] + '';
+                        }
+
+                        sql += ' ) AS count';
                     }
                       
                     if(multiTable){
@@ -223,6 +232,15 @@ module.exports = function(router,connection,passport,validModels,async,joins){
                             temp = req.body.orderBy.split('|');
                             sql += ' ORDER BY ' + temp[0] + ' ' + temp[1].toUpperCase();
                         }
+                    }
+                    callback(null,sql); // go to next function
+                },
+
+                // CHECK FOR 'group_by' KEY
+                /* groupBy: fieldName */
+                function(sql,callback){
+                    if(req.body.groupBy != null){
+                        sql += ' GROUP BY ' + req.body.groupBy;
                     }
                     callback(null,sql); // go to next function
                 },
