@@ -176,7 +176,9 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
 
                 // add a new record
                 fieldArr.user_id = userId; // NOTE: userId comes from req.user.id, which is set in login function, and therefore a safe source for the user id value
-                connection.query('INSERT INTO ' + tableName + ' SET ?', fieldArr, function(err, result) {
+                var queryString = 'INSERT INTO ' + tableName + ' SET ?';
+
+                connection.query(queryString, fieldArr, function(err, result) {
                     if(err){
                         returnObj = {query: queryString, dberr: err}
                         res.status(500).send(returnObj);
@@ -187,13 +189,14 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
                 });
             }else{
                 // PRIVATE RECORDS
-                var promise = '';
-                tableParent = validModels[tableName].join;
+                //var promise = Q.defer();
+                //tableParent = validModels[tableName].join;
 
-                security.checkForOwnerRecursively(promise,userId,tableName,tableParent,fieldArr)
-                .then(function(){
+                //security.checkForOwnerRecursively(promise,userId,tableName,tableParent,fieldArr)
+                //.then(function(){
                     // add a new record
-                    connection.query('INSERT INTO ' + tableName + ' SET ?', fieldArr, function(err, result) {
+                    var queryString = 'INSERT INTO ' + tableName + ' SET ?';
+                    connection.query(queryString, fieldArr, function(err, result) {
                         if(err){
                             returnObj = {query: queryString, dberr: err}
                             res.status(500).send(returnObj);
@@ -202,10 +205,10 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
                             res.status(200).send({insertId: result.insertId});
                         }
                     });
-                })
-                .catch(function(error){
-                    res.status(500).send(error);
-                });
+                //})
+                //.catch(function(error){
+                //    res.status(500).send(error);
+                //});
             }             
         }
         )
