@@ -48,7 +48,7 @@ var emlTransporter = require('./config/nodemailer.js')(nodemailer,smtpTransport)
 kurbiapi.use(bodyParser.urlencoded({ extended: true }));
 kurbiapi.use(bodyParser.json());
 // Cors
-kurbiapi.use(cors());
+//kurbiapi.use(cors());
 // passport initializing, can pass values if needed
 kurbiapi.use(passport.initialize());
 
