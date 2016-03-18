@@ -15,7 +15,7 @@ var nodemailer 		= require('nodemailer'),
 	smtpTransport 	= require('nodemailer-smtp-transport');
 //var multer			= require('multer');
 var Q				= require('q');
-var cors 			= require('cors');
+//var cors 			= require('cors');
 
 
 // GET VALUES PASSED VIA COMMAND LINE
