@@ -10,6 +10,7 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
             function(req,res){
             finalCallback = function(err, result){
                 if(err){
+                    console.log(err);
                     res.status(500).send(err);
                 }else{
                     res.status(200).send(result);
@@ -162,6 +163,7 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
 
             // do not allow users via app to add to tables (with data used for lookups and dropdowns)
             if(validModels[tableName] == 'public'){
+                console.log('alldbtables.js -- line 166 -- cannot insert into a lookup table');
                 res.status(500).send('cannot insert into a lookup table');
             }
 
@@ -174,8 +176,6 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
             }
 
             if(validModels[tableName] == 'private'){
-                console.log('adding rcd');
-
                 // add a new record
                 fieldArr.user_id = userId; // NOTE: userId comes from req.user.id, which is set in login function, and therefore a safe source for the user id value
                 var queryString = 'INSERT INTO ' + tableName + ' SET ?';
@@ -183,6 +183,7 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
                 connection.query(queryString, fieldArr, function(err, result) {
                     if(err){
                         returnObj = {query: queryString, dberr: err}
+                        console.log(returnObj);
                         res.status(500).send(returnObj);
                     }else{
                         // return id of inserted record (or return full record?)
@@ -201,6 +202,7 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
                     connection.query(queryString, fieldArr, function(err, result) {
                         if(err){
                             returnObj = {query: queryString, dberr: err}
+                            console.log(returnObj);
                             res.status(500).send(returnObj);
                         }else{
                             // return id of inserted record (or return full record?)
@@ -229,6 +231,7 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
 
                 // do not allow users via app to add to tables (with data used for lookups and dropdowns)
                 if(validModels[tableName] == 'public'){
+                    console.log('alldbtables.js -- line 234 -- cannot update in this table');
                     res.status(500).send('cannot update in this table');
                 }
 
@@ -245,6 +248,7 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
                 if(validModels[tableName] == 'private'){
                     // check to make sure that inserted field has 'user_id' and user_id value is current
                     if(!('user_id' in req.body)){
+                        console.log('alldbtables.js -- line 251 -- user id not set');
                         res.status(500).send('user id not set');
                     }else{
                         req.body.user_id = userId;
@@ -257,6 +261,7 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
                     queryString = 'SELECT * FROM ' + tableName + ' WHERE id=' + updateId;
                     connection.query(queryString,function(error,data){
                         if(error){
+                            console.log('alldbtables.js -- line 264 -- ',queryString,error);
                             res.status(500).send(queryString + ', ' + error);
                         }else{
                             security.checkForOwnerRecursively(promise,userId,tableName,tableParent,data[0])
@@ -268,6 +273,7 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
                                     function(err, result) {
                                         if(err){
                                             returnObj = {query: queryString, dberr: err}
+                                            console.log(returnObj);
                                             res.status(500).send(returnObj);
                                         }else{
                                             // return id of inserted record (or return full record?)
@@ -276,7 +282,8 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
                                     });
                             })
                             .catch(function(error){
-                                res.status(500).send('line 293' + error);
+                                console.log('alldbtables.js -- line 286 -- ', error);
+                                res.status(500).send('line 286' + error);
                             });
                         }
                     });
@@ -299,6 +306,7 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
 
                 // do not allow users via app to add to tables (with data used for lookups and dropdowns)
                 if(validModels[tableName] == 'public'){
+                    console.log('alldbtables.js -- line 309 -- cannot delete from this table');
                     res.status(500).send('cannot delete from this table');
                 }
 
@@ -306,6 +314,7 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
                 if(validModels[tableName] == 'private'){
                     // check to make sure that inserted field has 'user_id' and user_id value is current
                     if(!('user_id' in req.body)){
+                        console.log('alldbtables.js -- line 317 -- user id not set');
                         res.status(500).send('user id not set');
                     }else{
                         req.body.user_id = userId;
@@ -315,7 +324,7 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
                     tableParent = validModels[tableName].join;
 
                     queryString = 'SELECT * FROM ' + tableName + ' WHERE id=' + deleteId;
-console.log(queryString);
+
                     connection.query(queryString,function(error,data){
                         if(error){
                             res.status(500).send('There is no record by that id');
@@ -327,6 +336,7 @@ console.log(queryString);
                                 connection.query(queryString, function(err, result) {
                                     if(err){
                                         returnObj = {query: queryString, dberr: err}
+                                        console.log(returnObj);
                                         res.status(500).send(returnObj);
                                     }else{
                                         // return id of inserted record (or return full record?)
@@ -335,6 +345,7 @@ console.log(queryString);
                                 });
                             })
                             .catch(function(error){
+                                console.log(error);
                                 res.status(500).send(error);
                             });
                         }
