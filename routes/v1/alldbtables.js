@@ -41,7 +41,7 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
                     userId = req.user.id;
 
                     // validate whether table is private or public
-                    if(validModels[modelName] == 'public'){
+                    /*if(validModels[modelName] == 'public'){
                         // if table is public show all records requested
                         userFilter = false;
                     }else if(validModels[modelName] !== null && typeof validModels[modelName] === 'object'){
@@ -56,7 +56,9 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
                     }else{
                         // table is private to user
                         userFilter = true;
-                    }
+                    }*/
+
+                    userFilter = false;
                     
                     callback(null,modelName,id,userFilter,userId,joinTable,joinString);
                 },
