@@ -8,7 +8,7 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
                 {session: false}
             ),
             function(req,res){
-                finalCallback = function(err, result){
+                var finalCallback = function(err, result){
                     if(err){
                         console.log(err);
                         res.status(500).send(err);
