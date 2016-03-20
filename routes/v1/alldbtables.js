@@ -28,7 +28,7 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
                         var userId = '';
                         var joinTable = '';
                         var joinString = '';
-console.log('starting GET alldbtables.js, id: ' + id);
+
                         modelName = req.params.model;
                         if(!req.params[0]){
                             id='all';
@@ -41,7 +41,7 @@ console.log('starting GET alldbtables.js, id: ' + id);
                             }
                         }
                         userId = req.user.id;
-
+console.log('starting GET alldbtables.js, id: ' + id);
                         // validate whether table is private or public
                         /*if(validModels[modelName] == 'public'){
                             // if table is public show all records requested
