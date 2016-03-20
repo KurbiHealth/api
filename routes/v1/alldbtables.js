@@ -28,7 +28,7 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
                         var userId = '';
                         var joinTable = '';
                         var joinString = '';
-console.log('starting GET alldbtables.js');
+console.log('starting GET alldbtables.js, id: ' + id);
                         modelName = req.params.model;
                         if(!req.params[0]){
                             id='all';
