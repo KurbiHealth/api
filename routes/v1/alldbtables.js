@@ -8,146 +8,147 @@ module.exports = function(router,connection,passport,validModels,async,joins,sec
                 {session: false}
             ),
             function(req,res){
-            finalCallback = function(err, result){
-                if(err){
-                    console.log(err);
-                    res.status(500).send(err);
-                }else{
-                    res.status(200).send(result);
-                }
-            }
-            async.waterfall([
-
-                // CHECK IF MODEL IS PRIVATE OR PUBLIC; BUILD FILTER IF PRIVATE
-                function(callback){
-                    // get params
-                    modelName = '';
-                    id = '';
-                    userFilter = '';
-                    userId = '';
-                    joinTable = '';
-                    joinString = '';
-
-                    modelName = req.params.model;
-                    if(!req.params[0]){
-                        id='all';
+                finalCallback = function(err, result){
+                    if(err){
+                        console.log(err);
+                        res.status(500).send(err);
                     }else{
-                        if(isNaN(req.params[0])){
-                            // validate that ID is a number
-                            finalCallback('id is not a number',null);
-                        }else{
-                            id = req.params[0];
-                        }
+        console.log('ending GET alldbtables.js');
+                        res.status(200).send(result);
                     }
-                    userId = req.user.id;
+                }
+                async.waterfall([
 
-                    // validate whether table is private or public
-                    /*if(validModels[modelName] == 'public'){
-                        // if table is public show all records requested
+                    // CHECK IF MODEL IS PRIVATE OR PUBLIC; BUILD FILTER IF PRIVATE
+                    function(callback){
+                        // get params
+                        var modelName = '';
+                        var id = '';
+                        var userFilter = '';
+                        var userId = '';
+                        var joinTable = '';
+                        var joinString = '';
+console.log('starting GET alldbtables.js');
+                        modelName = req.params.model;
+                        if(!req.params[0]){
+                            id='all';
+                        }else{
+                            if(isNaN(req.params[0])){
+                                // validate that ID is a number
+                                finalCallback('id is not a number',null);
+                            }else{
+                                id = req.params[0];
+                            }
+                        }
+                        userId = req.user.id;
+
+                        // validate whether table is private or public
+                        /*if(validModels[modelName] == 'public'){
+                            // if table is public show all records requested
+                            userFilter = false;
+                        }else if(validModels[modelName] !== null && typeof validModels[modelName] === 'object'){
+                            // table is private but doesn't have user_id so needs to be joined
+                            joinTable = validModels[modelName].join;
+                            temp = joins[modelName];
+                            joinString = temp[joinTable];
+                            if(!validModels[joinTable] == 'private'){
+                                finalCallback('the table requested is more then one relationship away from a table with user id, you will need to set up a custom query to access this data',null);
+                            }
+                            userFilter = true;
+                        }else{
+                            // table is private to user
+                            userFilter = true;
+                        }*/
+
                         userFilter = false;
-                    }else if(validModels[modelName] !== null && typeof validModels[modelName] === 'object'){
-                        // table is private but doesn't have user_id so needs to be joined
-                        joinTable = validModels[modelName].join;
-                        temp = joins[modelName];
-                        joinString = temp[joinTable];
-                        if(!validModels[joinTable] == 'private'){
-                            finalCallback('the table requested is more then one relationship away from a table with user id, you will need to set up a custom query to access this data',null);
-                        }
-                        userFilter = true;
-                    }else{
-                        // table is private to user
-                        userFilter = true;
-                    }*/
-
-                    userFilter = false;
-                    
-                    callback(null,modelName,id,userFilter,userId,joinTable,joinString);
-                },
-
-                // GET RECORDS FROM DATABASE
-                function(modelName,id,userFilter,userId,joinTable,joinString,callback){
-                    // GET ALL RECORDS IN TABLE
-                    if(id=='all'){
-                        if(joinTable != ''){
-                            // if the table requested is linked to the users table
-                            // through another table, then 1) get the record(s) from
-                            // the join table with user id, then use that join table
-                            // record id to pull all linked records from the actual 
-                            // table requested
-
-                            queryString = 'SELECT * FROM ' + modelName + ' JOIN ' + joinTable + ' ON (' + joinString + ') WHERE ' + joinTable + '.user_id=' + userId;
-                            options = {sql: queryString, nestTables: true};
-                            connection.query(options, function(err, rows) {
-                                if(err){
-                                    finalCallback({query: queryString, err: err, line: 79},null);
-                                }else{
-                                    finalCallback(null,rows);
-                                }
-                            });
-                        }else{
-                            if(!userFilter){
-                                queryString = 'SELECT * FROM ' + modelName;
-                            }else{
-                                // if the requested table has a user_id field, then it's 
-                                // easy to filter for private user records
-                                queryString = 'SELECT * FROM ' + modelName + ' WHERE ' + modelName + '.user_id=' + userId;
-                            }
-                            connection.query(queryString, function(err, rows) {
-                                if(err){
-                                    finalCallback({query: queryString, err: err, line: 94},null);
-                                }else{
-                                    if(rows.length == 1){
-                                        returnObj = rows[0];
-                                    }else{
-                                        returnObj = rows;
-                                    }
-                                    finalCallback(null,returnObj);
-                                }
-                            });
-                        }
-                    }else{
-                        // jump to next function, pass it all
+                        
                         callback(null,modelName,id,userFilter,userId,joinTable,joinString);
-                    }
-                },
+                    },
 
-                function(modelName,id,userFilter,userId,joinTable,joinString,callback){
-                    // GET ONE RECORD FROM TABLE
-                    queryString = 'SELECT * FROM ' + modelName;
-                    if(joinTable){
-                        // need to check that the requested record belongs to the 
-                        // authenticated (current) user, by checking that the join
-                        // table has the right value in join_table.user_id
-                        queryString += ' JOIN ' + joinTable + ' ON (' + joinString + ') WHERE ' + joinTable + '.user_id=' + userId + ' AND';
-                    }
-                    queryString += ' WHERE ' + modelName + '.id=' + id;
-                    options = {sql: queryString, nestTables: true};
-                    connection.query(options, function(err, rows) {
-                        if(err){
-                            finalCallback({query: queryString, err: err, line: 124},null);
+                    // GET RECORDS FROM DATABASE
+                    function(modelName,id,userFilter,userId,joinTable,joinString,callback){
+                        // GET ALL RECORDS IN TABLE
+                        if(id=='all'){
+                            if(joinTable != ''){
+                                // if the table requested is linked to the users table
+                                // through another table, then 1) get the record(s) from
+                                // the join table with user id, then use that join table
+                                // record id to pull all linked records from the actual 
+                                // table requested
+
+                                queryString = 'SELECT * FROM ' + modelName + ' JOIN ' + joinTable + ' ON (' + joinString + ') WHERE ' + joinTable + '.user_id=' + userId;
+                                options = {sql: queryString, nestTables: true};
+                                connection.query(options, function(err, rows) {
+                                    if(err){
+                                        finalCallback({query: queryString, err: err, line: 79},null);
+                                    }else{
+                                        finalCallback(null,rows);
+                                    }
+                                });
+                            }else{
+                                if(!userFilter){
+                                    queryString = 'SELECT * FROM ' + modelName;
+                                }else{
+                                    // if the requested table has a user_id field, then it's 
+                                    // easy to filter for private user records
+                                    queryString = 'SELECT * FROM ' + modelName + ' WHERE ' + modelName + '.user_id=' + userId;
+                                }
+                                connection.query(queryString, function(err, rows) {
+                                    if(err){
+                                        finalCallback({query: queryString, err: err, line: 94},null);
+                                    }else{
+                                        if(rows.length == 1){
+                                            returnObj = rows[0];
+                                        }else{
+                                            returnObj = rows;
+                                        }
+                                        finalCallback(null,returnObj);
+                                    }
+                                });
+                            }
                         }else{
-                            if(rows.length == 1){
-                                returnObj = rows[0];
-                            }else{
-                                returnObj = rows;
-                            }
-                            // check that returnObj has a valid user_id value (if it's not a "privateJoin"); if not, return an error
-                            if(returnObj.user_id==userId || userFilter === false){
-                                finalCallback(null,returnObj);
-                            }else{
-                                finalCallback('private data requested illegally',null);
-                            }
+                            // jump to next function, pass it all
+                            callback(null,modelName,id,userFilter,userId,joinTable,joinString);
                         }
-                    });
-                }
+                    },
 
-            ],
+                    function(modelName,id,userFilter,userId,joinTable,joinString,callback){
+                        // GET ONE RECORD FROM TABLE
+                        queryString = 'SELECT * FROM ' + modelName;
+                        if(joinTable){
+                            // need to check that the requested record belongs to the 
+                            // authenticated (current) user, by checking that the join
+                            // table has the right value in join_table.user_id
+                            queryString += ' JOIN ' + joinTable + ' ON (' + joinString + ') WHERE ' + joinTable + '.user_id=' + userId + ' AND';
+                        }
+                        queryString += ' WHERE ' + modelName + '.id=' + id;
+                        options = {sql: queryString, nestTables: true};
+                        connection.query(options, function(err, rows) {
+                            if(err){
+                                finalCallback({query: queryString, err: err, line: 124},null);
+                            }else{
+                                if(rows.length == 1){
+                                    returnObj = rows[0];
+                                }else{
+                                    returnObj = rows;
+                                }
+                                // check that returnObj has a valid user_id value (if it's not a "privateJoin"); if not, return an error
+                                if(returnObj.user_id==userId || userFilter === false){
+                                    finalCallback(null,returnObj);
+                                }else{
+                                    finalCallback('private data requested illegally',null);
+                                }
+                            }
+                        });
+                    }
+
+                ],
 
                 // SEND DATA TO CLIENT
                 finalCallback
-            ); // end async.waterfall()
-            
-        } // end function(req,res)
+                ); // end async.waterfall()
+                
+            } // end function(req,res)
         ) // end get()
 
         .post(

@@ -256,7 +256,6 @@ module.exports = function(router,connection,passport,validModels,async,joins){
 
                 // DO DATABASE CALL
                 function(sqlString,callback){
-//console.log(sqlString);
                     options = {sql: sqlString, nestTables: true};
                     connection.query(options, function(err, rows) {
                         if(err){
