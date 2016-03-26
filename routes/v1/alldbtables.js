@@ -159,8 +159,8 @@ console.log('starting GET alldbtables.js, id: ' + id);
         function(req,res){
 
             // get variables
-            tableName = req.params.model;
-            userId = req.user.id;
+            var tableName = req.params.model;
+            var userId = req.user.id;
 
             // do not allow users via app to add to tables (with data used for lookups and dropdowns)
             if(validModels[tableName] == 'public'){
@@ -168,7 +168,7 @@ console.log('starting GET alldbtables.js, id: ' + id);
                 res.status(500).send('cannot insert into a lookup table');
             }
 
-            fieldArr = new Object;
+            var fieldArr = new Object;
             for(i in req.body){
                 // don't allow passing data to protected fields: id, created
                 if(i != 'id' && i != 'created' && i != 'parentTable' && i != 'parentId'){
@@ -265,8 +265,8 @@ console.log('starting GET alldbtables.js, id: ' + id);
                             console.log('alldbtables.js -- line 264 -- ',queryString,error);
                             res.status(500).send(queryString + ', ' + error);
                         }else{
-                            security.checkForOwnerRecursively(promise,userId,tableName,tableParent,data[0])
-                            .then(function(){
+                            //security.checkForOwnerRecursively(promise,userId,tableName,tableParent,data[0])
+                            //.then(function(){
                                 // update a record
                                 connection.query(
                                     'UPDATE ' + tableName + ' SET ? WHERE ' + tableName + '.id=' + updateId, 
@@ -281,11 +281,11 @@ console.log('starting GET alldbtables.js, id: ' + id);
                                             res.status(200).send('changed rows: ' + result.changedRows);
                                         }
                                     });
-                            })
-                            .catch(function(error){
+                            //})
+                            /*.catch(function(error){
                                 console.log('alldbtables.js -- line 286 -- ', error);
                                 res.status(500).send('line 286' + error);
-                            });
+                            });*/
                         }
                     });
                 } 
@@ -301,9 +301,9 @@ console.log('starting GET alldbtables.js, id: ' + id);
             ),
             function(req, res) {
                 // get variables
-                tableName = req.params.model;
-                userId = req.user.id;
-                deleteId = req.params[0];
+                var tableName = req.params.model;
+                var userId = req.user.id;
+                var deleteId = req.params[0];
 
                 // do not allow users via app to add to tables (with data used for lookups and dropdowns)
                 if(validModels[tableName] == 'public'){

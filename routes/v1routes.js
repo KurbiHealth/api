@@ -7,7 +7,7 @@ module.exports = function(router,connection,crypto,passport,async,emlTransporter
 
 	// middleware to use for all requests
 	router.use(function(req,res,next){
-//console.log(req.method + ' -> ' + req.url);
+
 		//if(body in req)
 		//	console.log(req.body);
 		// put passport.authenticate() here?????????
