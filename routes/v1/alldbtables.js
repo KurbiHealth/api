@@ -280,7 +280,8 @@ console.log('starting GET alldbtables.js, id: ' + id);
                                             // return id of inserted record (or return full record?)
                                             res.status(200).send('changed rows: ' + result.changedRows);
                                         }
-                                    });
+                                    }
+                                );
                             //})
                             /*.catch(function(error){
                                 console.log('alldbtables.js -- line 286 -- ', error);
