@@ -19,8 +19,10 @@ router.route('/login')
 				queryString = 'SELECT * FROM users WHERE email=\'' + email + '\' AND password=\'' + password + '\'';
 				connection.query(queryString, function(err,rows){
 					if(err){
+						console.log(err);
 						callback(err,null);
 					}else{
+						console.log(rows);
 						if(rows.length > 1){
 		            		callback('multiple users found',null);
 		            	}else{
