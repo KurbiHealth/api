@@ -331,8 +331,8 @@ console.log('starting GET alldbtables.js, id: ' + id);
                         if(error){
                             res.status(500).send('There is no record by that id');
                         }else{
-                            security.checkForOwnerRecursively(promise,userId,tableName,tableParent,data[0])
-                            .then(function(){
+                            //security.checkForOwnerRecursively(promise,userId,tableName,tableParent,data[0])
+                            //.then(function(){
                                 // delete record
                                 queryString = 'DELETE FROM ' + tableName + ' WHERE ' + tableName + '.id=' + deleteId;
                                 connection.query(queryString, function(err, result) {
@@ -345,11 +345,11 @@ console.log('starting GET alldbtables.js, id: ' + id);
                                         res.status(200).send('affected rows: ' + result.affectedRows);
                                     }
                                 });
-                            })
+                            /*})
                             .catch(function(error){
                                 console.log(error);
                                 res.status(500).send(error);
-                            });
+                            });*/
                         }
                     });
                 }
