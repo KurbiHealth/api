@@ -68,6 +68,9 @@ require('./routes/v1routes.js')(api_v1,connection,crypto,passport,async,emlTrans
 var devapi = express.Router();
 require('./routes/devroutes.js')(devapi,connection,passport,async);
 
+var api_v2 = express.Router();
+require('./routes/v2routes/_index.js')(api_v2,connection,crypto,passport,async,emlTransporter,Q);
+
 
 // ROUTES REGISTERED
 // ====================
@@ -75,6 +78,8 @@ require('./routes/devroutes.js')(devapi,connection,passport,async);
 kurbiapi.use('/v1', api_v1);
 // for using dev functionality
 kurbiapi.use('/dev/',devapi);
+// for to make this work with Restangular
+kurbiapi.use('/v2/',api_v2);
 
 
 // START THE SERVER

@@ -18,6 +18,7 @@ router.route('/login')
 				var user = {};
 				queryString = 'SELECT * FROM users WHERE email=\'' + email + '\' AND password=\'' + password + '\'';
 				connection.query(queryString, function(err,rows){
+					console.log('error: ',err,', rows: ',rows);
 					if(err){
 						console.log(err);
 						callback(err,null);

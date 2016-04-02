@@ -1,17 +1,14 @@
 module.exports = function(router,connection,crypto,passport,async,emlTransporter,Q){ // multer
 
 	// setup variables
-	var validModels = 	require('./v1/config/validModels.js');
-	var joins = 		require('./v1/config/joins.js');
-	var security = 		require('./v1/security/security.js')(router,connection,validModels,joins,Q);
+	//var validModels = 	require('./v1/config/validModels.js');
+	//var joins = 		require('./v1/config/joins.js');
+	//var security = 		require('./v1/security/security.js')(router,connection,validModels,joins,Q);
 
 	// middleware to use for all requests
 	router.use(function(req,res,next){
 
 		//if(body in req)
-console.log(req.body);
-console.log(req.params);
-console.log('---');
 		// put passport.authenticate() here?????????
 
 		// Website you wish to allow to connect
@@ -34,22 +31,23 @@ console.log('---');
 		}
 	});
 
-	router.param('model',function(req,res,next,model){
+	//router.param('model',function(req,res,next,model){
         // CHECK MODEL IS VALID
         // (validModels is a 1-dimensional array from /config/validModels.js)
-        modelStatus = model in validModels;
+        //modelStatus = model in validModels;
 
-// if this is a PUT to "users", then need to allow adding new data to user record
-// also need POST for a new user if it's a care_team invitation
-// allow DELETE on users? only if they delete themselves? or archive the rcd
+		// if this is a PUT to "users", then need to allow adding new data to user record
+		// also need POST for a new user if it's a care_team invitation
+		// allow DELETE on users? only if they delete themselves? or archive the rcd
 
 		// model name not found in keys of "validModels" object
-        if(modelStatus == false){
+        /*if(modelStatus == false){
             res.status(500).send('modelNameInvalid');
         }else{
         	next();
-        }
-    });
+        }*/
+        //next();
+    //});
 
     // HELPER FUNCTIONS
     // ====================
@@ -77,18 +75,12 @@ console.log('---');
 	// ROUTES DEFINED
 	// ====================
 
-	require('./v1/loginsignup.js')(router,connection,crypto,async);
-	require('./v1/query.js')(router,connection,passport,validModels,async,joins);
-	require('./v1/alldbtables.js')(router,connection,passport,validModels,async,joins,security,Q);
-	require('./v1/customroutes.js')(router,connection,passport,validModels,async,joins,sendMessage);
-	require('./v1/messages.js')(router,connection,passport,validModels,async,joins,sendMessage);
-
-	require('./v1/landingpgsignup.js')(router,connection,crypto,async);
+	require('./get.js')(router,connection,passport,async,Q); // validModels, joins, security
 
 	// test route to make sure everything is working
 	router.get('/', 
 		function(req, res) {
-	    	res.json({ message: 'welcome to the Kurbi API!' });   
+	    	res.json({ message: 'welcome to the Kurbi API! (v2 for Restangular)' });   
 		}
 	);
 
