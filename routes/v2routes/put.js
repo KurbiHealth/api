@@ -8,22 +8,19 @@ module.exports = function(router,connection,passport,async,Q){
                 {session: false}
             ),
             function(req,res){
-console.log('++++');
-console.log(req.params);
-console.log(req.query);
-console.log(req.body);
-console.log('----');
-                var modelName = req.params.model;
-                var limit = req.query._perPage;
-                //queryString = 'SELECT * FROM ' + modelName + ' JOIN ' + joinTable + ' ON (' + joinString + ') WHERE ' + joinTable + '.user_id=' + userId;
-                var queryString = 'SELECT * FROM ' + modelName;// + ' LIMIT ' + limit;
 
-                if(typeof req.params.id != 'undefined' && req.params.id != ''){
-                    queryString += ' WHERE id=' + req.params.id;
-                }
-console.log(queryString);
-                options = {sql: queryString, nestTables: false};
-                connection.query(options, function(err, rows) {
+                // SET UP INITIAL QUERY
+                var modelName = req.params.model;
+                var id = req.params.id;
+                var queryString = 'UPDATE ' + modelName + ' SET ? WHERE id=' + id;
+
+                // PROCESS INPUT FIELDS (SANITIZATION DONE BY THE MYSQL LIBRARY)
+                if(typeof req.body.created != 'undefined')
+                    delete req.body['created'];
+                if(typeof req.body.id != 'undefined')
+                    delete req.body['id'];
+
+                connection.query(queryString, req.body, function(err, rows) {
                     if(err){
                         console.log({query: queryString, err: err, line: 79});
                         res.status(500).send({query: queryString, err: err, line: 79});
@@ -33,6 +30,7 @@ console.log(queryString);
                         res.status(200).send(rows);
                     }
                 });
+
             } // end function(req,res)
         ) // end get()
 

@@ -30,6 +30,15 @@ module.exports = function(mysql,ENV){
 		  database: 		'kurbitestapi'
 		});
 
+	}else if(ENV == 'remotetest'){
+
+		return mysql.createConnection({
+		  host: 			'104.236.89.234',
+		  user: 			'remoteUser',
+		  password : 		'Br9pjgNnW_5D^na4',
+		  database: 		'kurbitestapi'
+		});
+
 	}else{
 
 		// default to returning PROD values if nothing else is defined

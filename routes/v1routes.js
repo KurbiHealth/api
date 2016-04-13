@@ -1,4 +1,4 @@
-module.exports = function(router,connection,crypto,passport,async,emlTransporter,Q){ // multer
+module.exports = function(router,connection,crypto,passport,async,emlTransporter,Q,ENV){ // multer
 
 	// setup variables
 	var validModels = 	require('./v1/config/validModels.js');
@@ -8,30 +8,27 @@ module.exports = function(router,connection,crypto,passport,async,emlTransporter
 	// middleware to use for all requests
 	router.use(function(req,res,next){
 
-		//if(body in req)
-console.log(req.body);
-console.log(req.params);
-console.log('---');
-		// put passport.authenticate() here?????????
-
-		// Website you wish to allow to connect
-		//res.setHeader('Access-Control-Allow-Origin', '*');
-
-		// Request methods you wish to allow
-		//res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-		// Request headers you wish to allow
-		//res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,x-custom-username,x-custom-token');
-
-		// Set to true if you need the website to include cookies in the requests sent
-		// to the API (e.g. in case you use sessions)
-		//res.setHeader('Access-Control-Allow-Credentials', true);
-
-		//if (req.method === 'OPTIONS') {
-		//	res.send(200);
-		//}else{
+		// production is using Nginx which is adding the appropriate headers. Developers are 
+		// using MAMP, and need headers added here. -Matt Eckman (4/7/2016)
+		if(ENV == 'dev'){
+			// Website you wish to allow to connect
+			res.setHeader('Access-Control-Allow-Origin', '*');
+			// Request methods you wish to allow
+			res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+			// Request headers you wish to allow
+			res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,x-custom-username,x-custom-token');
+			// Set to true if you need the website to include cookies in the requests sent
+			// to the API (e.g. in case you use sessions)
+			res.setHeader('Access-Control-Allow-Credentials', true);
+			if (req.method === 'OPTIONS') {
+				res.send(200);
+			}else{
+				next();
+			}
+		}else{
 			next();
-		//}
+		}
+
 	});
 
 	router.param('model',function(req,res,next,model){
@@ -82,7 +79,7 @@ console.log('---');
 	require('./v1/alldbtables.js')(router,connection,passport,validModels,async,joins,security,Q);
 	require('./v1/customroutes.js')(router,connection,passport,validModels,async,joins,sendMessage);
 	require('./v1/messages.js')(router,connection,passport,validModels,async,joins,sendMessage);
-
+	require('./v1/checktoken.js')(router,passport);
 	require('./v1/landingpgsignup.js')(router,connection,crypto,async);
 
 	// test route to make sure everything is working

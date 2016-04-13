@@ -63,13 +63,13 @@ kurbiapi.get('/',function(req,res){
 });
 
 var api_v1 = express.Router();
-require('./routes/v1routes.js')(api_v1,connection,crypto,passport,async,emlTransporter,Q); //multer
+require('./routes/v1routes.js')(api_v1,connection,crypto,passport,async,emlTransporter,Q,ENV); //multer
 
 var devapi = express.Router();
 require('./routes/devroutes.js')(devapi,connection,passport,async);
 
 var api_v2 = express.Router();
-require('./routes/v2routes/_index.js')(api_v2,connection,crypto,passport,async,emlTransporter,Q);
+require('./routes/v2routes/_index.js')(api_v2,connection,crypto,passport,async,emlTransporter,Q,ENV);
 
 
 // ROUTES REGISTERED
@@ -80,6 +80,19 @@ kurbiapi.use('/v1', api_v1);
 kurbiapi.use('/dev/',devapi);
 // for to make this work with Restangular
 kurbiapi.use('/v2/',api_v2);
+
+// MODIFY RESPONSE BEFORE SENDING
+// ==============================
+/*kurbiapi.use(function(){
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,x-custom-username,x-custom-token');
+	// Set to true if you need the website to include cookies in the requests sent to the API 
+	// (e.g. in case you use sessions)
+	res.setHeader('Access-Control-Allow-Credentials', true);
+
+	next();
+});*/
 
 
 // START THE SERVER

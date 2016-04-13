@@ -28,6 +28,7 @@ module.exports = function(passport,TokenStrategy,connection){
 		tokenField:     'custom-token'
 	},
     function (username, token, done) {
+
 			if(username == 'kurbidev'){
 				if(token == '71892c62b9d4e70e31146f092c38a039456369b1fb10ff157f8d755'){
 					user = {id: 1,first_name: 'Kurbi',last_name:'Dev'};
@@ -38,20 +39,24 @@ module.exports = function(passport,TokenStrategy,connection){
 			}else{
 				// use username (email) and token to pull from users table
 				connection.query(
-					'SELECT * FROM users WHERE email=\'' + username + '\' AND auth_token=\'' + token + '\'', 
+					'SELECT * FROM users WHERE email=\'' + username + '\'', 
 					function(err, rows, fields) {
-						if (err){
+						// NOTES;
+						// -> return done([error(obj or null)],[user(false or object)],[message])
+				    	// -> return values are sent to kurbiAuthenticate()
+						if(err){
 							console.log(err);
 	                        return done(err,false);
 						}
-
-						// return done([error(obj or null)],[user(false or object)],[message])
-				    	// return values are sent to kurbiAuthenticate()
 						if(rows.length == 0){
 							return done(null,false);
 						}else{
-							user = rows[0];
-							return done(null,user);
+							if(rows[0].auth_token != token){
+								return done(null,false);
+							}else{
+								user = rows[0];
+								return done(null,user);
+							}
 						}
 					}
 				);
