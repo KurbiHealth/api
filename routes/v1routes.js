@@ -10,7 +10,7 @@ module.exports = function(router,connection,crypto,passport,async,emlTransporter
 
 		// production is using Nginx which is adding the appropriate headers. Developers are 
 		// using MAMP, and need headers added here. -Matt Eckman (4/7/2016)
-		if(ENV == 'dev'){
+		if(ENV == 'dev' || ENV=='remotetest'){
 			// Website you wish to allow to connect
 			res.setHeader('Access-Control-Allow-Origin', '*');
 			// Request methods you wish to allow
