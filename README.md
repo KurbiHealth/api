@@ -1,7 +1,11 @@
 KICKING OFF THE API LOCALLY
 
-ENV=remotetest node server.js (if you just want to change the api code and not the database)
-ENV=dev node server.js (if you have Mysql installed locally)
+ENV=remotetest node server.js 
+(if you just want to change the api code and not the database)
+ENV=dev node server.js 
+(if you have Mysql installed locally)
+
+you need to have a configDev.json file in the root file of the ''
 
 NOTES ABOUT API
 

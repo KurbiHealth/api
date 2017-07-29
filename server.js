@@ -13,10 +13,12 @@ var crypto 			= require('crypto');
 var async 			= require('async');
 var nodemailer 		= require('nodemailer'),
 	smtpTransport 	= require('nodemailer-smtp-transport');
-//var multer			= require('multer');
 var Q				= require('q');
+var helmet			= require('helmet');
+var caminte			= require('caminte'),
+	Schema			= caminte.Schema;
+//var multer		= require('multer');
 //var cors 			= require('cors');
-
 
 // GET VALUES PASSED VIA COMMAND LINE
 // ====================
@@ -40,10 +42,22 @@ kurbiapi.on('uncaughtException', function (req, res, route, err) {
 
 // CONFIGURATION
 // ====================
+
+// THIS IS API IS DEPRECATED!!!
+// FOR STORAGE PURPOSES THE CONFIG FILES WERE MOVED INTO THE ROOT OF THE 
+// APPLICATION!!! MOVE OUT BEFORE PUTTING BACK INTO PRODUCTION
+
+// var connection 	= require('../kurbi_api_config/mysql.js')(mysql,ENV);
+// require('../kurbi_api_config/passport.js')(passport,TokenStrategy,connection);
+// var emlTransporter = require('../kurbi_api_config/nodemailer.js')(nodemailer,smtpTransport);
+
 var connection 	= require('./config/mysql.js')(mysql,ENV);
 require('./config/passport.js')(passport,TokenStrategy,connection);
 var emlTransporter = require('./config/nodemailer.js')(nodemailer,smtpTransport);
 
+
+// PRE-ROUTES MIDDLEWARE
+// ====================
 // bodyParser() will let us get the data from a POST
 kurbiapi.use(bodyParser.urlencoded({ extended: true }));
 kurbiapi.use(bodyParser.json());
@@ -51,6 +65,8 @@ kurbiapi.use(bodyParser.json());
 //kurbiapi.use(cors());
 // passport initializing, can pass values if needed
 kurbiapi.use(passport.initialize());
+// helmet() sets headers according to security best practices
+kurbiapi.use(helmet());
 
 
 // ROUTES SETUP
@@ -71,6 +87,8 @@ require('./routes/devroutes.js')(devapi,connection,passport,async);
 var api_v2 = express.Router();
 require('./routes/v2routes/_index.js')(api_v2,connection,crypto,passport,async,emlTransporter,Q,ENV);
 
+var api_v3 = express.Router();
+require('./routes/v3routes/_index.js')(api_v2,connection,crypto,passport,async,emlTransporter,Q,ENV,Schema);
 
 // ROUTES REGISTERED
 // ====================
@@ -78,21 +96,18 @@ require('./routes/v2routes/_index.js')(api_v2,connection,crypto,passport,async,e
 kurbiapi.use('/v1', api_v1);
 // for using dev functionality
 kurbiapi.use('/dev/',devapi);
-// for to make this work with Restangular
+// to make the api work with Restangular
 kurbiapi.use('/v2/',api_v2);
+// to make the api work with Caminte
+kurbiapi.use('/v3/',api_v3);
 
-// MODIFY RESPONSE BEFORE SENDING
+
+// ERROR HANDLING MIDDLEWARE
 // ==============================
-/*kurbiapi.use(function(){
-	res.setHeader('Access-Control-Allow-Origin', '*');
-	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-	res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,x-custom-username,x-custom-token');
-	// Set to true if you need the website to include cookies in the requests sent to the API 
-	// (e.g. in case you use sessions)
-	res.setHeader('Access-Control-Allow-Credentials', true);
-
-	next();
-});*/
+kurbiapi.use(function(err,req,res,next){
+	res.status(500);
+	res.render('error', { error: err });
+});
 
 
 // START THE SERVER

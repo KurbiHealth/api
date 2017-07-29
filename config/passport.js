@@ -30,16 +30,18 @@ module.exports = function(passport,TokenStrategy,connection){
     function (username, token, done) {
 
 			if(username == 'kurbidev'){
-				if(token == '71892c62b9d4e70e31146f092c38a039456369b1fb10ff157f8d755'){
-					user = {id: 1,first_name: 'Kurbi',last_name:'Dev'};
+				if(token == ''){
+					var user = {id: ,first_name: '',last_name:''};
 					return done(null,user);
 				}else{
 					return done(null,false);
 				}
 			}else{
+				// validation provided by mysql library
+				// https://github.com/mysqljs/mysql#escaping-query-values
 				// use username (email) and token to pull from users table
 				connection.query(
-					'SELECT * FROM users WHERE email=\'' + username + '\'', 
+					'SELECT * FROM users WHERE email=\'' + connection.escape(username) + '\'', 
 					function(err, rows, fields) {
 						// NOTES;
 						// -> return done([error(obj or null)],[user(false or object)],[message])

@@ -13,19 +13,21 @@ console.log(req.params);
 console.log(req.query); 
 console.log(req.body);
 
-                // SET UP INITIAL QUERY
+                // SET UP VARS
                 var modelName = req.params.model;
-                var queryString = 'SELECT * FROM ' + modelName;
                 var whereCounter = 0;
 
+                // SET UP QUERY
+                var queryString = 'SELECT * FROM ' + modelName;
 
 
-                // ADD OPTIONS '_filters'
+                // ADD OPTIONS: '_filters'
                 if(typeof req.query._filters != 'undefined'){
-console.log(typeof req.query._filters);
                     var filters = JSON.parse(req.query._filters);
-console.log(filters);
                     for(var key in filters){
+                        if(key == '[object Object]'){
+                            next({badString: filters, err: error.stack, line: '27'});
+                        }
                         if(whereCounter == 0)
                             queryString += ' WHERE ';
                         else
@@ -39,7 +41,6 @@ console.log(filters);
                 }
 
 
-
                 // ADD "ID" IF INCLUDED
                 if(typeof req.params.id != 'undefined' && req.params.id != ''){
                     if(whereCounter == 0)
@@ -50,8 +51,7 @@ console.log(filters);
                 }
 
 
-
-                // ADD OPTIONS 'sortDir' & '_sortField'
+                // ADD OPTIONS: 'sortDir' & '_sortField'
                 if(typeof req.query._sortField != 'undefined' && req.query._sortField != ''){
                     queryString += ' ORDER BY `' + req.query._sortField + '`';
                 }
@@ -60,13 +60,12 @@ console.log(filters);
                 }
 
 
-
-                // ADD OPTIONS '_page' & '_perPage'
+                // ADD OPTIONS: '_page' & '_perPage'
                 if(typeof req.query._perPage != 'undefined' && req.query._perPage != ''){
                     // 1. get total # of entries
                     connection.query({sql: 'SELECT * FROM ' + modelName}, function(err,rows) {
                         if(err){
-                            res.status(500).send({query: queryString, err: err, line: 28});
+                            next({query: queryString, err: err, line: 28});
                         }else{
                             res.set('X-Total-Count', rows.length);
                             res.set('Access-Control-Expose-Headers','x-total-count');
@@ -81,12 +80,12 @@ console.log(filters);
 
 //console.log(queryString);
 
-                // DO DATABASE QUERY
+                // DO SQL QUERY
                 var options = {sql: queryString, nestTables: false};
                 connection.query(options, function(err,rows) {
                     if(err){
                         console.log({query: queryString, err: err, line: '72'});
-                        res.status(500).send({query: queryString, err: err, line: '72'});
+                        next({query: queryString, err: err, line: '72'});
                     }else{
                         if(rows.length == 1)
                             rows = rows[0];
